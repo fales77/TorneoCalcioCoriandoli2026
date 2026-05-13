@@ -232,7 +232,7 @@
   thead th{
     font-size:14px;
     letter-spacing:.35px;
-    text-transform:uppercase;
+    text-transform:none;
     color:var(--muted);
     background:linear-gradient(to bottom,#fff,#fbfcfe);
     border-top:1px solid var(--line);
@@ -317,6 +317,55 @@
     flex:0 0 20px;
   }
 
+/* ===================== CLASSIFICA - NO WRAP & NO SCROLL ===================== */
+.ranking {
+  width: 100%;
+  table-layout: fixed;
+  border-collapse: collapse;
+}
+
+.col-team {
+  text-align: left !important;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-weight: 600;
+  padding-left: 8px;
+}
+
+/* Larghezza colonne su desktop */
+@media (min-width: 769px) {
+  .col-team { width: 38%; }
+  .ranking th:nth-child(n+2) { width: 8.5%; }
+}
+
+/* COMPRESSIONE su Smartphone */
+@media (max-width: 768px) {
+  .ranking {
+    font-size: 13.2px;           /* testo più piccolo */
+  }
+  
+  .col-team {
+    width: 36%;                  /* lascia spazio alle altre colonne */
+    min-width: 110px;
+    padding-left: 6px;
+    padding-right: 4px;
+  }
+  
+  .ranking th, .ranking td {
+    padding: 7px 4px;
+  }
+  
+  .ranking thead th {
+    font-size: 12.5px;
+  }
+  
+  /* Riduci un po' le intestazioni */
+  .ranking th:not(.col-team) {
+    font-size: 12px;
+    padding: 6px 3px;
+  }
+}
   /* ==========================================================
      SECTION: CLASSIFICA + LEGEND
   ========================================================== */
@@ -355,6 +404,7 @@
     line-height:1.25;
   }
   .classifica-help b{color:var(--ink);}
+    
 
   /* Mini legenda gironi fase finale (una riga) */
   .finals-legend{
@@ -531,11 +581,11 @@
         <table aria-label="Calendario girone unico">
           <thead>
             <tr>
-              <th class="col-date">Data</th>
-              <th class="col-time">Ora</th>
-              <th class="col-match">Incontro</th>
-              <th class="col-res">Ris</th>
-              <th class="col-note">C.</th>
+              <th class="col-date">DATA</th>
+              <th class="col-time">ORA</th>
+              <th class="col-match">INCONTRO</th>
+              <th class="col-res">RIS</th>
+              <th class="col-note">Cam</th>
             </tr>
           </thead>
           <tbody>
@@ -563,22 +613,22 @@
 
       <!-- 3) CLASSIFICA -->
       <section class="card classifica">
-        <h2><span class="dot red"></span> Classifica</h2>
-
-        <table class="ranking" aria-label="Classifica Girone A">
-          <thead>
-            <tr>
-              <th>Squadra</th>
-              <th style="width:12%">PT</th>
-              <th style="width:6%">V</th>
-              <th style="width:6%">P</th>
-              <th style="width:6%">S</th>
-              <th style="width:6%">GF</th>
-              <th style="width:6%">GS</th>
-              <th style="width:6%">DR</th>
-            </tr>
-          </thead>
-          <tbody>
+  <h2><span class="dot red"></span> Classifica</h2>
+  
+  <table class="ranking" aria-label="Classifica Girone A">
+    <thead>
+      <tr>
+        <th class="col-team">Squadra</th>
+        <th>PT</th>
+        <th>V</th>
+        <th>P</th>
+        <th>S</th>
+        <th>GF</th>
+        <th>GS</th>
+        <th>DR</th>
+      </tr>
+    </thead>
+    <tbody>
             <tr class="rank-oro"><td>Pro Eureka</td><td>12</td><td>4</td><td>0</td><td>1</td><td>0</td><td>0</td><td>8</td></tr>
             <tr class="rank-oro"><td>Lucento</td><td>10</td><td>3</td><td>1</td><td>0</td><td>0</td><td>0</td><td>8</td></tr>
             <tr class="rank-oro"><td>Sisport</td><td>7</td><td>2</td><td>1</td><td>1</td><td>0</td><td>0</td><td>3</td></tr>
@@ -621,10 +671,10 @@
             <table aria-label="Girone Bronzo">
               <thead>
                 <tr>
-                  <th class="col-date">Data</th>
-                  <th class="col-time">Ora</th>
-                  <th class="col-match">Incontro</th>
-                  <th class="col-res">Ris.</th>
+                  <th class="col-date">DATA</th>
+                  <th class="col-time">ORA</th>
+                  <th class="col-match">INCONTRO</th>
+                  <th class="col-res">RIS</th>
                 </tr>
               </thead>
               <tbody>
@@ -643,10 +693,10 @@
             <table aria-label="Girone Argento">
               <thead>
                 <tr>
-                  <th class="col-date">Data</th>
-                  <th class="col-time">Ora</th>
-                  <th class="col-match">Incontro</th>
-                  <th class="col-res">Ris.</th>
+                  <th class="col-date">DATA</th>
+                  <th class="col-time">ORA</th>
+                  <th class="col-match">INCONTRO</th>
+                  <th class="col-res">RIS</th>
                 </tr>
               </thead>
               <tbody>
@@ -665,10 +715,10 @@
             <table aria-label="Girone Oro">
               <thead>
                 <tr>
-                  <th class="col-date">Data</th>
-                  <th class="col-time">Ora</th>
-                  <th class="col-match">Incontro</th>
-                  <th class="col-res">Ris.</th>
+                  <th class="col-date">DATA</th>
+                  <th class="col-time">ORA</th>
+                  <th class="col-match">INCONTRO</th>
+                  <th class="col-res">RIS</th>
                 </tr>
               </thead>
               <tbody>
