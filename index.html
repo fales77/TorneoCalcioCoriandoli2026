@@ -378,6 +378,18 @@
     padding-left: 12px !important;   /* prova tra 16 e 20px */
   }
 }
+/* ===================== STILE COLONNA PUNTI ===================== */
+.ranking tbody td:nth-child(2) {     /* Solo le celle dati (numeri) */
+  font-size: 15px !important;
+  font-weight: 800 !important;
+  color: #1565c0;                    /* Blu intenso */
+  letter-spacing: 0.5px;
+}
+
+/* Opzionale: effetto hover sulla riga */
+.ranking tbody tr:hover td:nth-child(2) {
+  color: #0d47a1;
+}
   /* ==========================================================
      SECTION: CLASSIFICA + LEGEND
   ========================================================== */
@@ -630,7 +642,7 @@
   <table class="ranking" aria-label="Classifica Girone A">
     <thead>
       <tr>
-        <th class="col-team">Squadra</th>
+        <th class="col-team">SQUADRA</th>
         <th>PT</th>
         <th>V</th>
         <th>P</th>
