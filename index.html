@@ -462,7 +462,7 @@
     border:1px solid var(--line);
     border-radius:14px;
     background:rgba(255,255,255,.78);
-    padding:9px;
+    padding:8px;
     box-shadow:0 6px 18px rgba(0,0,0,.06);
   }
 
@@ -640,19 +640,17 @@
         <th>DR</th>
       </tr>
     </thead>
-    <tbody>
-            <tr class="rank-oro"><td>Pro Eureka</td><td>12</td><td>4</td><td>0</td><td>1</td><td>0</td><td>0</td><td>8</td></tr>
-            <tr class="rank-oro"><td>Lucento</td><td>10</td><td>3</td><td>1</td><td>0</td><td>0</td><td>0</td><td>8</td></tr>
-            <tr class="rank-oro"><td>Sisport</td><td>7</td><td>2</td><td>1</td><td>1</td><td>0</td><td>0</td><td>3</td></tr>
-
-            <tr class="rank-argento"><td>Cesena</td><td>5</td><td>1</td><td>2</td><td>1</td><td>0</td><td>0</td><td>0</td></tr>
-            <tr class="rank-argento"><td>Vanchiglia</td><td>5</td><td>1</td><td>2</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
-            <tr class="rank-argento"><td>CBS</td><td>4</td><td>1</td><td>1</td><td>2</td><td>0</td><td>0</td><td>-2</td></tr>
-
-            <tr class="rank-bronzo"><td>Venaria Reale</td><td>4</td><td>1</td><td>1</td><td>2</td><td>0</td><td>0</td><td>-5</td></tr>
-            <tr class="rank-bronzo"><td>Pro Vercelli</td><td>2</td><td>0</td><td>2</td><td>2</td><td>0</td><td>0</td><td>-4</td></tr>
-            <tr class="rank-bronzo"><td>Lugano</td><td>0</td><td>0</td><td>0</td><td>4</td><td>0</td><td>0</td><td>-6</td></tr>
-          </tbody>
+	<tbody>
+		<tr><td>Pro Eureka</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+		<tr><td>Lucento</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+		<tr><td>Sisport</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+		<tr><td>Cesena</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+		<tr><td>Vanchiglia</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+		<tr><td>CBS</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+		<tr><td>Venaria Reale</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+		<tr><td>Pro Vercelli</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+		<tr><td>Lugano</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+	</tbody>
         </table>
 
         <div class="finals-legend" role="note" aria-label="Legenda gironi fasi finali">
@@ -664,7 +662,7 @@
         <div class="classifica-help" role="note">
           <span class="muted">
             <b>Criteri classifica:</b> PT · a parità di PT vale lo <b>scontro diretto</b> (se disputato) · se pari anche lo scontro diretto:
-            <b>GF</b> · poi <b>DR</b>.
+            <b>DR</b> · poi <b>GF</b> infine numero di atleti in Distinta.
           </span>
         </div>
       </section>
@@ -745,13 +743,11 @@
     </section>
   </main>
 
-  <script>
+ <script>
   (function () {
     // ==========================================================
-    // CLASSIFICA AUTO: PT + SCONTRO DIRETTO + GF + DR
-    // Ordine: PT desc -> H2H (se esiste) -> GF desc -> DR desc
+    // V02 - CLASSIFICA AUTOMATICA (DR prima di GF)
     // ==========================================================
-
     const POINTS_WIN = 3;
     const POINTS_DRAW = 1;
     const POINTS_LOSS = 0;
@@ -762,17 +758,20 @@
     ]);
 
     function normTeam(name) {
-      const clean = String(name || "").trim().replace(/\s+/g, " ").toLowerCase();
+      const clean = String(name || "").trim()
+        .replace(/\s+/g, " ")
+        .toLowerCase();
       return ALIASES.get(clean) || clean;
     }
 
     function parseMatchText(text) {
       const t = String(text || "").trim();
+      if (!t) return null;
 
       let parts = t.split(/\s+vs\s+/i);
       if (parts.length === 2) return parts.map(s => s.trim());
 
-      parts = t.split(/\s*-\s*/);
+      parts = t.split(/\s*[-–]\s*/);
       if (parts.length === 2) return parts.map(s => s.trim());
 
       return null;
@@ -780,52 +779,12 @@
 
     function parseScoreText(text) {
       const t = String(text || "").trim();
-      if (!t || t === "—") return null;
+      if (!t || t === "—" || t === "-") return null;
 
       const m = t.match(/^(\d+)\s*[-–]\s*(\d+)$/);
       if (!m) return null;
+
       return [Number(m[1]), Number(m[2])];
-    }
-
-    function ensure(stats, teamKey) {
-      if (!stats.has(teamKey)) {
-        stats.set(teamKey, { V:0, P:0, S:0, GF:0, GS:0, DR:0, PT:0 });
-      }
-      return stats.get(teamKey);
-    }
-
-    function pairKey(a, b) {
-      return [a, b].sort().join("||");
-    }
-
-    function setH2H(h2hMap, a, b, aGoals, bGoals) {
-      const sorted = [a, b].sort();
-      const k = sorted.join("||");
-      const aKey = sorted[0];
-      const bKey = sorted[1];
-
-      const rec = (aKey === a)
-        ? { aKey, bKey, aGoals, bGoals }
-        : { aKey, bKey, aGoals: bGoals, bGoals: aGoals };
-
-      h2hMap.set(k, rec);
-    }
-
-    function getH2HResult(h2hMap, a, b) {
-      const k = pairKey(a, b);
-      const rec = h2hMap.get(k);
-      if (!rec) return 0;
-
-      let aG, bG;
-      if (rec.aKey === a) {
-        aG = rec.aGoals; bG = rec.bGoals;
-      } else {
-        aG = rec.bGoals; bG = rec.aGoals;
-      }
-
-      if (aG > bG) return 1;
-      if (aG < bG) return -1;
-      return 0;
     }
 
     function computeFromIncontri() {
@@ -834,7 +793,7 @@
 
       document.querySelectorAll(".girone tbody tr").forEach(tr => {
         const tds = tr.querySelectorAll("td");
-        if (tds.length < 5) return;
+        if (tds.length < 4) return;
 
         const teams = parseMatchText(tds[2]?.textContent || "");
         const score = parseScoreText(tds[3]?.textContent || "");
@@ -846,27 +805,32 @@
         const a = normTeam(aName);
         const b = normTeam(bName);
 
-        const sa = ensure(stats, a);
-        const sb = ensure(stats, b);
+        if (!stats.has(a)) stats.set(a, { V:0, P:0, S:0, GF:0, GS:0, PT:0 });
+        if (!stats.has(b)) stats.set(b, { V:0, P:0, S:0, GF:0, GS:0, PT:0 });
 
-        setH2H(h2hMap, a, b, aGoals, bGoals);
+        const sa = stats.get(a);
+        const sb = stats.get(b);
 
         sa.GF += aGoals; sa.GS += bGoals;
         sb.GF += bGoals; sb.GS += aGoals;
 
         if (aGoals > bGoals) {
           sa.V += 1; sa.PT += POINTS_WIN;
-          sb.S += 1; sb.PT += POINTS_LOSS;
+          sb.S += 1;
         } else if (aGoals < bGoals) {
           sb.V += 1; sb.PT += POINTS_WIN;
-          sa.S += 1; sa.PT += POINTS_LOSS;
+          sa.S += 1;
         } else {
           sa.P += 1; sb.P += 1;
           sa.PT += POINTS_DRAW; sb.PT += POINTS_DRAW;
         }
+
+        // Head-to-Head
+        const key = [a, b].sort().join("||");
+        h2hMap.set(key, { a, b, aGoals, bGoals });
       });
 
-      for (const v of stats.values()) v.DR = v.GF - v.GS;
+      stats.forEach(s => s.DR = s.GF - s.GS);
       return { stats, h2hMap };
     }
 
@@ -875,13 +839,11 @@
         const cells = tr.querySelectorAll("td");
         if (cells.length < 8) return;
 
-        const key = normTeam(cells[0].textContent);
-        const s = stats.get(key);
-
-        const set0 = (i) => (cells[i].textContent = "0");
+        const teamKey = normTeam(cells[0].textContent);
+        const s = stats.get(teamKey);
 
         if (!s) {
-          set0(1); set0(2); set0(3); set0(4); set0(5); set0(6); set0(7);
+          for (let i = 1; i <= 7; i++) cells[i].textContent = "0";
           return;
         }
 
@@ -895,12 +857,6 @@
       });
     }
 
-    function toIntCell(tr, idx) {
-      const t = tr.querySelectorAll("td")[idx]?.textContent ?? "0";
-      const n = parseInt(String(t).trim(), 10);
-      return Number.isFinite(n) ? n : 0;
-    }
-
     function sortAndRankClassifica(h2hMap) {
       const tbody = document.querySelector(".classifica tbody");
       if (!tbody) return;
@@ -909,28 +865,41 @@
       rows.forEach(r => r.classList.remove("rank-oro", "rank-argento", "rank-bronzo"));
 
       rows.sort((ra, rb) => {
-        const aName = (ra.querySelector("td")?.textContent || "").trim();
-        const bName = (rb.querySelector("td")?.textContent || "").trim();
+        const aName = ra.cells[0].textContent.trim();
+        const bName = rb.cells[0].textContent.trim();
         const aKey = normTeam(aName);
         const bKey = normTeam(bName);
 
-        const aPT = toIntCell(ra, 1), bPT = toIntCell(rb, 1);
+        const aPT = parseInt(ra.cells[1].textContent) || 0;
+        const bPT = parseInt(rb.cells[1].textContent) || 0;
+
         if (bPT !== aPT) return bPT - aPT;
 
-        const h2h = getH2HResult(h2hMap, aKey, bKey);
-        if (h2h !== 0) return -h2h;
+        // Scontro Diretto
+        const key = [aKey, bKey].sort().join("||");
+        const h2h = h2hMap.get(key);
+        if (h2h) {
+          if (h2h.a === aKey && h2h.aGoals > h2h.bGoals) return -1;
+          if (h2h.a === aKey && h2h.aGoals < h2h.bGoals) return 1;
+        }
 
-        const aGF = toIntCell(ra, 5), bGF = toIntCell(rb, 5);
-        if (bGF !== aGF) return bGF - aGF;
-
-        const aDR = toIntCell(ra, 7), bDR = toIntCell(rb, 7);
+        // DR (prima di GF - come richiesto)
+        const aDR = parseInt(ra.cells[7].textContent) || 0;
+        const bDR = parseInt(rb.cells[7].textContent) || 0;
         if (bDR !== aDR) return bDR - aDR;
+
+        // GF
+        const aGF = parseInt(ra.cells[5].textContent) || 0;
+        const bGF = parseInt(rb.cells[5].textContent) || 0;
+        if (bGF !== aGF) return bGF - aGF;
 
         return aName.localeCompare(bName, "it");
       });
 
+      // Riordina
       rows.forEach(r => tbody.appendChild(r));
 
+      // Applica fasce colori
       rows.forEach((r, i) => {
         if (i < 3) r.classList.add("rank-oro");
         else if (i < 6) r.classList.add("rank-argento");
@@ -944,14 +913,20 @@
       sortAndRankClassifica(h2hMap);
     }
 
+    // Avvio
     run();
 
+    // Aggiornamento automatico
     const incontriTable = document.querySelector(".girone table");
     if (incontriTable) {
-      const obs = new MutationObserver(() => run());
-      obs.observe(incontriTable, { subtree:true, characterData:true, childList:true });
+      const obs = new MutationObserver(run);
+      obs.observe(incontriTable, { 
+        subtree: true, 
+        characterData: true, 
+        childList: true 
+      });
     }
   })();
-  </script>
+</script>
 </body>
 </html>
