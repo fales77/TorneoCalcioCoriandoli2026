@@ -1,0 +1,862 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>19° Calcio &amp; Coriandoli – Calendario Torneo (U12)</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%E2%9A%BD%3C/text%3E%3C/svg%3E">
+
+  <style>
+  /* ==========================================================
+     DESIGN TOKENS
+  ========================================================== */
+  :root{
+    --ink:#111;
+    --muted:#5b6470;
+    --line:#d7dde6;
+
+    --pill:#f2f5fa;
+
+    --accent:#0aa36b;    /* Incontri */
+    --accent2:#f2b705;   /* Oro */
+    --accent3:#2f7ad9;   /* Squadre */
+    --accent4:#dc2626;   /* Classifica */
+
+    --shadow: 0 10px 28px rgba(0,0,0,.10);
+
+    /* Strisce topbar */
+    --stripeA: rgba(255, 170, 0, .9);   /* arancio sole */
+    --stripeB: rgba(50, 140, 50, .9);   /* verde scuro */
+
+    /* Tabelle: zebra + hover */
+    --rowA:#ffffff;
+    --rowB:#f6f7f9;
+    --rowH:#eceff3;
+
+    /* Barre “fasce” (come Classifica) */
+    --rank-oro: rgba(242,183,5,.70);
+    --rank-argento: rgba(148,163,184,.75);
+    --rank-bronzo: rgba(180,83,9,.65);
+  }
+
+  /* ==========================================================
+     BASE / PAGE
+  ========================================================== */
+  html,body{height:100%;}
+  body{
+    margin:0;
+    font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", sans-serif;
+    color:var(--ink);
+    background:
+      radial-gradient(900px 520px at 12% 0%, rgba(58,130,246,.10), transparent 58%),
+      radial-gradient(900px 520px at 88% 12%, rgba(16,185,129,.10), transparent 55%),
+      linear-gradient(180deg, #eef2f6 0%, #e8edf3 40%, #eef2f6 100%);
+  }
+  .muted{color:var(--muted);}
+
+  /* ==========================================================
+     WRAPPER + GRID
+  ========================================================== */
+  .shell{
+    max-width:1280px;
+    margin:0 auto;
+    padding:28px 22px 40px;
+  }
+
+ .layout{
+  margin-top:16px;
+  display:grid;
+  gap:18px;
+
+  /* Squadre più stretto (≈ -10%) + Classifica più larga (≈ +10%) */
+  grid-template-columns:
+    clamp(180px, 16vw, 199px)      /* Squadre */
+    minmax(520px, 1.395fr)         /* Incontri */
+    minmax(360px, 1.392fr);        /* Classifica */
+
+  align-items:stretch;
+}
+
+
+  .finals{grid-column:1 / -1;}
+
+  /* ==========================================================
+     HEADER (topbar)
+  ========================================================== */
+  .topbar{
+    display:flex;
+    align-items:flex-start;
+    justify-content:space-between;
+    gap:18px;
+    padding:18px 18px 16px;
+    background:
+      repeating-linear-gradient(
+        135deg,
+        var(--stripeA) 0 98px,
+        var(--stripeB) 98px 196px
+      ),
+      rgba(255,255,255,.82);
+    border:1px solid var(--line);
+    border-radius:16px;
+    box-shadow:var(--shadow);
+    backdrop-filter:blur(8px);
+  }
+
+  .title{min-width:320px;}
+  .title-row{
+    display:flex;
+    align-items:baseline;
+    gap:12px;
+    white-space:nowrap;
+  }
+  .title-row h1{
+    margin:0;
+    font-size:22px;
+    letter-spacing:.2px;
+    line-height:1.08;
+  }
+  .title-row .sub{
+    margin:0;
+    font-size:13px;
+    color:var(--ink);
+  }
+  .meta{
+    text-align:right;
+    font-size:12px;
+    color:var(--ink);
+    line-height:1.35;
+    white-space:nowrap;
+  }
+
+  /* ==========================================================
+     CARD (contenitore comune)
+  ========================================================== */
+  .card{
+    border:1px solid var(--line);
+    border-radius:16px;
+    padding:16px;
+    background:rgba(255,255,255,.92);
+    box-shadow:var(--shadow);
+    backdrop-filter:blur(8px);
+    display:flex;
+    flex-direction:column;
+    min-height:0;
+  }
+  .card h2{
+    margin:0 0 12px 0;
+    font-size:14px;
+    letter-spacing:.9px;
+    text-transform:uppercase;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+  }
+
+  /* ==========================================================
+     UI ELEMENTS
+  ========================================================== */
+  .dot{
+    width:10px;
+    height:10px;
+    border-radius:50%;
+    background:var(--accent);
+    box-shadow:0 0 0 4px rgba(10,163,107,.12);
+    flex:0 0 10px;
+  }
+  .dot.gold{background:var(--accent2); box-shadow:0 0 0 4px rgba(242,183,5,.14);}
+  .dot.blue{background:var(--accent3); box-shadow:0 0 0 4px rgba(47,122,217,.14);}
+  .dot.red {background:var(--accent4); box-shadow:0 0 0 4px rgba(220,38,38,.14);}
+
+  .pill{
+    display:inline-block;
+    padding:4px 10px;
+    border-radius:999px;
+    background:var(--pill);
+    color:var(--muted);
+    font-weight:700;
+    font-size:11px;
+    letter-spacing:.2px;
+    border:1px solid rgba(0,0,0,.03);
+  }
+
+  /* ==========================================================
+     TABLE SYSTEM (base)
+  ========================================================== */
+  table{
+    width:100%;
+    border-collapse:collapse;
+    font-size:14px;
+    line-height:1.15;
+  }
+  th,td{
+    border-bottom:1px solid var(--line);
+    padding:6px 10px;
+    vertical-align:middle;
+  }
+  thead th{
+    font-size:14px;
+    letter-spacing:.35px;
+    text-transform:uppercase;
+    color:var(--muted);
+    background:linear-gradient(to bottom,#fff,#fbfcfe);
+    border-top:1px solid var(--line);
+  }
+  tr:last-child td{border-bottom:0;}
+
+  .col-date,.col-time,
+  th.col-date,th.col-time{
+    white-space:nowrap;
+    text-align:center;
+    font-variant-numeric:tabular-nums;
+    font-feature-settings:"tnum" 1;
+  }
+
+  /* ==========================================================
+     SECTION: INCONTRI
+  ========================================================== */
+  .girone table{table-layout:auto;}
+  .girone th,.girone td{padding:4px 6px;}
+
+  .girone th.col-date,.girone td.col-date,
+  .girone th.col-time,.girone td.col-time,
+  .girone th.col-res, .girone td.col-res,
+  .girone th.col-note,.girone td.col-note{
+    width:1%;
+    white-space:nowrap;
+  }
+  .girone th.col-match,.girone td.col-match{width:auto;}
+
+  /* respiro Data | Ora */
+  .girone th.col-date,.girone td.col-date{padding-right:10px;}
+  .girone th.col-time,.girone td.col-time{padding-left:10px; padding-right:14px;}
+
+  /* match a sinistra */
+  .girone thead th.col-match,
+  .girone tbody td.col-match{ text-align:left; }
+
+  /* FIT tra match e risultato */
+  .girone th.col-match, .girone td.col-match{ padding-right:0; }
+  .girone th.col-res,   .girone td.col-res{ padding-left:0; text-align:center; }
+
+  /* zebra + hover */
+  .girone tbody tr:nth-child(odd){background:var(--rowA);}
+  .girone tbody tr:nth-child(even){background:var(--rowB);}
+  .girone tbody tr:hover{background:var(--rowH);}
+  .girone tbody tr{transition:background-color 140ms ease;}
+
+  /* ==========================================================
+     SECTION: SQUADRE
+  ========================================================== */
+  .teams{
+    flex:1 1 auto;
+    min-height:0;
+    display:grid;
+    grid-template-columns:1fr;
+    grid-template-rows:repeat(9,1fr);
+    gap:10px;
+    align-content:stretch;
+  }
+  .team{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:10px;
+    border:1px dashed var(--line);
+    border-radius:12px;
+    background:#fcfdff;
+    font-size:18px;
+    line-height:1.1;
+    min-width:0;
+  }
+  .badge{
+    width:20px;
+    height:20px;
+    border-radius:7px;
+    display:grid;
+    place-items:center;
+    background:#e9f7f1;
+    color:#087a50;
+    font-weight:800;
+    font-size:13px;
+    flex:0 0 20px;
+  }
+
+  /* ==========================================================
+     SECTION: CLASSIFICA + LEGEND
+  ========================================================== */
+  .ranking th,.ranking td{text-align:center;}
+  .ranking th:first-child,.ranking td:first-child{text-align:left;}
+
+  .classifica .ranking td:first-child{
+    font-size:15px;
+    font-weight:600;
+    letter-spacing:.1px;
+  }
+  .classifica .ranking tbody td{
+    padding-top:9px;
+    padding-bottom:9px;
+    line-height:1.25;
+  }
+  .classifica .ranking tbody td:not(:first-child){
+    font-size:14px;
+    font-weight:500;
+    font-variant-numeric:tabular-nums;
+  }
+
+  .classifica .ranking tbody tr.rank-oro td{background:rgba(242,183,5,.18);}
+  .classifica .ranking tbody tr.rank-argento td{background:rgba(148,163,184,.22);}
+  .classifica .ranking tbody tr.rank-bronzo td{background:rgba(180,83,9,.16);}
+
+  .classifica .ranking tbody tr.rank-oro td:first-child{box-shadow:inset 5px 0 0 var(--rank-oro);}
+  .classifica .ranking tbody tr.rank-argento td:first-child{box-shadow:inset 5px 0 0 var(--rank-argento);}
+  .classifica .ranking tbody tr.rank-bronzo td:first-child{box-shadow:inset 5px 0 0 var(--rank-bronzo);}
+
+  .classifica-help{
+    margin-top:12px;
+    padding-top:10px;
+    border-top:1px dashed var(--line);
+    font-size:12px;
+    line-height:1.25;
+  }
+  .classifica-help b{color:var(--ink);}
+
+  /* Mini legenda gironi fase finale (una riga) */
+  .finals-legend{
+    margin-top:8px;
+    display:flex;
+    align-items:center;
+    gap:14px;
+    flex-wrap:nowrap;
+    white-space:nowrap;
+    font-size:12px;
+    line-height:1.1;
+    color:var(--ink);
+  }
+  .legend-item{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+  }
+
+  /* Pallini legenda (dimensione “ufficiale” 14px) */
+  .legend-dot{
+    width:14px;
+    height:14px;
+    border-radius:999px;
+    flex:0 0 14px;
+    box-shadow:0 0 0 4px rgba(0,0,0,.06);
+    display:inline-block;
+  }
+  .legend-dot.oro{ background: rgba(242,183,5,.95); box-shadow: 0 0 0 4px rgba(242,183,5,.18); }
+  .legend-dot.argento{ background: rgba(148,163,184,.95); box-shadow: 0 0 0 4px rgba(148,163,184,.22); }
+  .legend-dot.bronzo{ background: rgba(180,83,9,.95); box-shadow: 0 0 0 4px rgba(180,83,9,.18); }
+
+  /* ==========================================================
+     SECTION: FASI FINALI (stesso stile di Incontri)
+  ========================================================== */
+  .finals-row{
+    display:grid;
+    grid-template-columns:1fr 1fr 1fr;
+    gap:12px;
+    align-items:start;
+  }
+  .final-box{
+    border:1px solid var(--line);
+    border-radius:14px;
+    background:rgba(255,255,255,.78);
+    padding:12px;
+    box-shadow:0 6px 18px rgba(0,0,0,.06);
+  }
+
+  /* Header box: titolo + vincitore */
+  .final-head{
+    display:flex;
+    align-items:baseline;
+    justify-content:space-between;
+    gap:10px;
+    padding:2px 2px 10px;
+    margin:0 0 10px 0;
+    border-bottom:1px dashed var(--line);
+  }
+
+  /* ✅ Titolo con pallino (14px) uguale alla legenda sotto classifica */
+  .final-title{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    font-weight:800;
+    letter-spacing:.35px;
+    text-transform:uppercase;
+    font-size:13px;
+    white-space:nowrap;
+  }
+  .final-winner{
+    font-size:12px;
+    white-space:nowrap;
+  }
+  .final-winner span{
+    font-weight:700;
+    letter-spacing:.2px;
+  }
+
+  /* Colori titolo coerenti (soft) */
+  .final-box.bronzo  .final-title{ color: rgba(180,83,9,.95); }
+  .final-box.argento .final-title{ color: rgba(100,116,139,.95); }
+  .final-box.oro     .final-title{ color: rgba(202,138,4,.95); }
+
+  .final-box table{
+    table-layout:auto;
+    font-size:14px;
+    line-height:1.15;
+  }
+  .final-box th, .final-box td{ padding:4px 6px; }
+
+  .final-box th.col-date, .final-box td.col-date,
+  .final-box th.col-time, .final-box td.col-time,
+  .final-box th.col-res,  .final-box td.col-res{
+    width:1%;
+    white-space:nowrap;
+  }
+  .final-box th.col-match, .final-box td.col-match{ width:auto; }
+
+  .final-box thead th.col-match,
+  .final-box tbody td.col-match{ text-align:left; }
+
+  .final-box th.col-match, .final-box td.col-match{ padding-right:0; }
+  .final-box th.col-res,   .final-box td.col-res{ padding-left:0; text-align:center; }
+
+  /* Barra colorata a sinistra su ogni riga (Bronzo/Argento/Oro) */
+  .final-box tbody td{ position: relative; }
+  .final-box.bronzo  tbody td:first-child{ box-shadow: inset 5px 0 0 var(--rank-bronzo); }
+  .final-box.argento tbody td:first-child{ box-shadow: inset 5px 0 0 var(--rank-argento); }
+  .final-box.oro     tbody td:first-child{ box-shadow: inset 5px 0 0 var(--rank-oro); }
+
+  /* piccolo respiro tra barra e contenuto */
+  .final-box td.col-date{ padding-left:10px; }
+
+  /* ==========================================================
+     RESPONSIVE + PRINT
+  ========================================================== */
+  @media (max-width:1024px){
+    .layout{grid-template-columns:1fr;}
+    .finals{grid-column:auto;}
+    .meta{white-space:normal;}
+    .teams{grid-template-rows:none;}
+    .finals-row{grid-template-columns:1fr;}
+    .title-row{white-space:normal;}
+  }
+
+  @media print{
+    body{background:#fff;}
+    .shell{max-width:none; padding:0;}
+    .topbar,.card{box-shadow:none; backdrop-filter:none; background:#fff;}
+    *{-webkit-print-color-adjust:exact; print-color-adjust:exact;}
+  }
+  </style>
+</head>
+
+<body>
+  <main class="shell">
+    <!-- ===================== HEADER ====================== -->
+    <header class="topbar">
+      <div class="title">
+        <div class="title-row">
+          <h1>19° CALCIO &amp; CORIANDOLI</h1>
+          <div class="sub">&emsp; Categoria Esordienti 1° anno &emsp;&emsp;(Under 12 - 2014) &emsp;&emsp; tempo unico 25'</div>
+        </div>
+      </div>
+
+      <div class="meta">
+        <div>Campo: ASD Venaria Reale</div>
+        <div>Via San Marchese, 27 · Venaria Reale</div>
+      </div>
+    </header>
+
+    <!-- ===================== MAIN GRID ==================== -->
+    <section class="layout">
+      <!-- 1) SQUADRE -->
+      <section class="card squadre">
+        <h2><span class="dot blue"></span> Girone Squadre</h2>
+        <div class="teams" aria-label="Elenco squadre">
+          <div class="team"><div class="badge">1</div><div>Pro Vercelli</div></div>
+          <div class="team"><div class="badge">2</div><div>Lugano</div></div>
+          <div class="team"><div class="badge">3</div><div>Cesena</div></div>
+          <div class="team"><div class="badge">4</div><div>Lucento</div></div>
+          <div class="team"><div class="badge">5</div><div>Vanchiglia</div></div>
+          <div class="team"><div class="badge">6</div><div>Sisport</div></div>
+          <div class="team"><div class="badge">7</div><div>Pro Eureka</div></div>
+          <div class="team"><div class="badge">8</div><div>CBS</div></div>
+          <div class="team"><div class="badge">9</div><div>Venaria Reale</div></div>
+        </div>
+      </section>
+
+      <!-- 2) INCONTRI -->
+      <section class="card girone">
+        <h2><span class="dot"></span> Girone Incontri</h2>
+
+        <table aria-label="Calendario girone unico">
+          <thead>
+            <tr>
+              <th class="col-date">Data</th>
+              <th class="col-time">Ora</th>
+              <th class="col-match">Incontro</th>
+              <th class="col-res">Ris.</th>
+              <th class="col-note">Note</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td class="col-date">07/02/2026</td><td class="col-time">14:00</td><td class="col-match">Pro Vercelli vs Lucento</td><td class="col-res">0 - 2</td><td class="col-note muted">Campo B</td></tr>
+            <tr><td class="col-date">07/02/2026</td><td class="col-time">14:30</td><td class="col-match">Pro Vercelli vs Vanchiglia</td><td class="col-res">0 - 2</td><td class="col-note muted">Campo B</td></tr>
+            <tr><td class="col-date">07/02/2026</td><td class="col-time">15:00</td><td class="col-match">Lucento vs Vanchiglia</td><td class="col-res">1 - 1</td><td class="col-note muted">Campo B</td></tr>
+            <tr><td class="col-date">07/02/2026</td><td class="col-time">15:30</td><td class="col-match">Lugano vs Sisport</td><td class="col-res">1 - 3</td><td class="col-note muted">Campo B</td></tr>
+            <tr><td class="col-date">07/02/2026</td><td class="col-time">16:00</td><td class="col-match">Pro Vercelli vs CBS</td><td class="col-res">2 - 2</td><td class="col-note muted">Campo B</td></tr>
+            <tr><td class="col-date">07/02/2026</td><td class="col-time">16:30</td><td class="col-match">Lugano vs Pro Eureka</td><td class="col-res">1 - 3</td><td class="col-note muted">Campo B</td></tr>
+            <tr><td class="col-date">07/02/2026</td><td class="col-time">17:00</td><td class="col-match">Sisport vs Pro Eureka</td><td class="col-res">1 - 2</td><td class="col-note muted">Campo B</td></tr>
+            <tr><td class="col-date">07/02/2026</td><td class="col-time">17:30</td><td class="col-match">Cesena vs CBS</td><td class="col-res">2 - 0</td><td class="col-note muted">Campo B</td></tr>
+            <tr><td class="col-date">07/02/2026</td><td class="col-time">18:00</td><td class="col-match">Cesena vs Venaria Reale</td><td class="col-res">2 - 2</td><td class="col-note muted">Campo B</td></tr>
+            <tr><td class="col-date">08/02/2026</td><td class="col-time">09:30</td><td class="col-match">CBS vs Venaria Reale</td><td class="col-res">2 - 1</td><td class="col-note muted">Campo B</td></tr>
+            <tr><td class="col-date">08/02/2026</td><td class="col-time">10:00</td><td class="col-match">Sisport vs CBS</td><td class="col-res">2 - 0</td><td class="col-note muted">Campo B</td></tr>
+            <tr><td class="col-date">08/02/2026</td><td class="col-time">10:30</td><td class="col-match">Sisport vs Pro Vercelli</td><td class="col-res">0 - 0</td><td class="col-note muted">Campo B</td></tr>
+            <tr><td class="col-date">08/02/2026</td><td class="col-time">11:00</td><td class="col-match">Lugano vs Venaria Reale</td><td class="col-res">1 - 2</td><td class="col-note muted">Campo B</td></tr>
+            <tr><td class="col-date">08/02/2026</td><td class="col-time">11:30</td><td class="col-match">Lugano vs Lucento</td><td class="col-res">0 - 1</td><td class="col-note muted">Campo B</td></tr>
+            <tr><td class="col-date">08/02/2026</td><td class="col-time">12:00</td><td class="col-match">Lucento vs Venaria Reale</td><td class="col-res">5 - 0</td><td class="col-note muted">Campo B</td></tr>
+            <tr><td class="col-date">08/02/2026</td><td class="col-time">12:30</td><td class="col-match">Cesena vs Vanchiglia</td><td class="col-res">0 - 0</td><td class="col-note muted">Campo B</td></tr>
+            <tr><td class="col-date">08/02/2026</td><td class="col-time">13:00</td><td class="col-match">Cesena vs Pro Eureka</td><td class="col-res">1 - 3</td><td class="col-note muted">Campo B</td></tr>
+            <tr><td class="col-date">08/02/2026</td><td class="col-time">13:30</td><td class="col-match">Vanchiglia vs Pro Eureka</td><td class="col-res">0 - 2</td><td class="col-note muted">Campo B</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- 3) CLASSIFICA -->
+      <section class="card classifica">
+        <h2><span class="dot red"></span> Classifica</h2>
+
+        <table class="ranking" aria-label="Classifica Girone A">
+          <thead>
+            <tr>
+              <th>Squadra</th>
+              <th style="width:10%">PT</th>
+              <th style="width:10%">V</th>
+              <th style="width:10%">P</th>
+              <th style="width:10%">S</th>
+              <th style="width:10%">GF</th>
+              <th style="width:10%">GS</th>
+              <th style="width:10%">DR</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="rank-oro"><td>Pro Eureka</td><td>12</td><td>4</td><td>0</td><td>1</td><td>0</td><td>0</td><td>8</td></tr>
+            <tr class="rank-oro"><td>Lucento</td><td>10</td><td>3</td><td>1</td><td>0</td><td>0</td><td>0</td><td>8</td></tr>
+            <tr class="rank-oro"><td>Sisport</td><td>7</td><td>2</td><td>1</td><td>1</td><td>0</td><td>0</td><td>3</td></tr>
+
+            <tr class="rank-argento"><td>Cesena</td><td>5</td><td>1</td><td>2</td><td>1</td><td>0</td><td>0</td><td>0</td></tr>
+            <tr class="rank-argento"><td>Vanchiglia</td><td>5</td><td>1</td><td>2</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+            <tr class="rank-argento"><td>CBS</td><td>4</td><td>1</td><td>1</td><td>2</td><td>0</td><td>0</td><td>-2</td></tr>
+
+            <tr class="rank-bronzo"><td>Venaria Reale</td><td>4</td><td>1</td><td>1</td><td>2</td><td>0</td><td>0</td><td>-5</td></tr>
+            <tr class="rank-bronzo"><td>Pro Vercelli</td><td>2</td><td>0</td><td>2</td><td>2</td><td>0</td><td>0</td><td>-4</td></tr>
+            <tr class="rank-bronzo"><td>Lugano</td><td>0</td><td>0</td><td>0</td><td>4</td><td>0</td><td>0</td><td>-6</td></tr>
+          </tbody>
+        </table>
+
+        <div class="finals-legend" role="note" aria-label="Legenda gironi fasi finali">
+          <span class="legend-item"><i class="legend-dot oro" aria-hidden="true"></i> Girone ORO</span>
+          <span class="legend-item"><i class="legend-dot argento" aria-hidden="true"></i> Girone ARGENTO</span>
+          <span class="legend-item"><i class="legend-dot bronzo" aria-hidden="true"></i> Girone BRONZO</span>
+        </div>
+
+        <div class="classifica-help" role="note">
+          <span class="muted">
+            <b>Criteri classifica:</b> PT · a parità di PT vale lo <b>scontro diretto</b> (se disputato) · se pari anche lo scontro diretto:
+            <b>GF</b> · poi <b>DR</b>.
+          </span>
+        </div>
+      </section>
+
+      <!-- 4) FASI FINALI -->
+      <section class="card finals">
+        <h2><span class="dot gold"></span> Fasi Finali</h2>
+
+        <div class="finals-row">
+          <div class="final-box bronzo">
+            <div class="final-head">
+              <!-- ✅ pallino (14px) uguale alla legenda -->
+              <div class="final-title"><i class="legend-dot bronzo" aria-hidden="true"></i> Girone Bronzo</div>
+              <div class="final-winner">Vincitore: <span class="muted">VENARIA REALE</span></div>
+            </div>
+            <table aria-label="Girone Bronzo">
+              <thead>
+                <tr>
+                  <th class="col-date">Data</th>
+                  <th class="col-time">Ora</th>
+                  <th class="col-match">Incontro</th>
+                  <th class="col-res">Ris.</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td class="col-date">08/02/2026</td><td class="col-time">14:00</td><td class="col-match">Lugano - Pro Vercelli</td><td class="col-res">—</td></tr>
+                <tr><td class="col-date">08/02/2026</td><td class="col-time">14:30</td><td class="col-match">Venaria Reale - Pro Vercelli</td><td class="col-res">—</td></tr>
+                <tr><td class="col-date">08/02/2026</td><td class="col-time">15:00</td><td class="col-match">Venaria Reale - Lugano</td><td class="col-res">—</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="final-box argento">
+            <div class="final-head">
+              <div class="final-title"><i class="legend-dot argento" aria-hidden="true"></i> Girone Argento</div>
+              <div class="final-winner">Vincitore: <span class="muted">VANCHIGLIA</span></div>
+            </div>
+            <table aria-label="Girone Argento">
+              <thead>
+                <tr>
+                  <th class="col-date">Data</th>
+                  <th class="col-time">Ora</th>
+                  <th class="col-match">Incontro</th>
+                  <th class="col-res">Ris.</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td class="col-date">08/02/2026</td><td class="col-time">15:30</td><td class="col-match">Vanchiglia vs CBS</td><td class="col-res">—</td></tr>
+                <tr><td class="col-date">08/02/2026</td><td class="col-time">16:00</td><td class="col-match">Cesena vs CBS</td><td class="col-res">—</td></tr>
+                <tr><td class="col-date">08/02/2026</td><td class="col-time">16:30</td><td class="col-match">Cesena vs Vanchiglia</td><td class="col-res">—</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="final-box oro">
+            <div class="final-head">
+              <div class="final-title"><i class="legend-dot oro" aria-hidden="true"></i> Girone Oro</div>
+              <div class="final-winner">Vincitore: <span class="muted">SISPORT</span></div>
+            </div>
+            <table aria-label="Girone Oro">
+              <thead>
+                <tr>
+                  <th class="col-date">Data</th>
+                  <th class="col-time">Ora</th>
+                  <th class="col-match">Incontro</th>
+                  <th class="col-res">Ris.</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td class="col-date">08/02/2026</td><td class="col-time">17:00</td><td class="col-match">Pro Eureka vs Lucento</td><td class="col-res">0 - 2</td></tr>
+                <tr><td class="col-date">08/02/2026</td><td class="col-time">17:30</td><td class="col-match">Lucento vs Sisport</td><td class="col-res">0 - 0</td></tr>
+                <tr><td class="col-date">08/02/2026</td><td class="col-time">18:00</td><td class="col-match">Sisport vs Pro Eureka</td><td class="col-res">2 - 0</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <script>
+  (function () {
+    // ==========================================================
+    // CLASSIFICA AUTO: PT + SCONTRO DIRETTO + GF + DR
+    // Ordine: PT desc -> H2H (se esiste) -> GF desc -> DR desc
+    // ==========================================================
+
+    const POINTS_WIN = 3;
+    const POINTS_DRAW = 1;
+    const POINTS_LOSS = 0;
+
+    const ALIASES = new Map([
+      ["venaria", "venaria reale"],
+      ["venaria reale", "venaria reale"],
+    ]);
+
+    function normTeam(name) {
+      const clean = String(name || "").trim().replace(/\s+/g, " ").toLowerCase();
+      return ALIASES.get(clean) || clean;
+    }
+
+    function parseMatchText(text) {
+      const t = String(text || "").trim();
+
+      let parts = t.split(/\s+vs\s+/i);
+      if (parts.length === 2) return parts.map(s => s.trim());
+
+      parts = t.split(/\s*-\s*/);
+      if (parts.length === 2) return parts.map(s => s.trim());
+
+      return null;
+    }
+
+    function parseScoreText(text) {
+      const t = String(text || "").trim();
+      if (!t || t === "—") return null;
+
+      const m = t.match(/^(\d+)\s*[-–]\s*(\d+)$/);
+      if (!m) return null;
+      return [Number(m[1]), Number(m[2])];
+    }
+
+    function ensure(stats, teamKey) {
+      if (!stats.has(teamKey)) {
+        stats.set(teamKey, { V:0, P:0, S:0, GF:0, GS:0, DR:0, PT:0 });
+      }
+      return stats.get(teamKey);
+    }
+
+    function pairKey(a, b) {
+      return [a, b].sort().join("||");
+    }
+
+    function setH2H(h2hMap, a, b, aGoals, bGoals) {
+      const sorted = [a, b].sort();
+      const k = sorted.join("||");
+      const aKey = sorted[0];
+      const bKey = sorted[1];
+
+      const rec = (aKey === a)
+        ? { aKey, bKey, aGoals, bGoals }
+        : { aKey, bKey, aGoals: bGoals, bGoals: aGoals };
+
+      h2hMap.set(k, rec);
+    }
+
+    function getH2HResult(h2hMap, a, b) {
+      const k = pairKey(a, b);
+      const rec = h2hMap.get(k);
+      if (!rec) return 0;
+
+      let aG, bG;
+      if (rec.aKey === a) {
+        aG = rec.aGoals; bG = rec.bGoals;
+      } else {
+        aG = rec.bGoals; bG = rec.aGoals;
+      }
+
+      if (aG > bG) return 1;
+      if (aG < bG) return -1;
+      return 0;
+    }
+
+    function computeFromIncontri() {
+      const stats = new Map();
+      const h2hMap = new Map();
+
+      document.querySelectorAll(".girone tbody tr").forEach(tr => {
+        const tds = tr.querySelectorAll("td");
+        if (tds.length < 5) return;
+
+        const teams = parseMatchText(tds[2]?.textContent || "");
+        const score = parseScoreText(tds[3]?.textContent || "");
+        if (!teams || !score) return;
+
+        const [aName, bName] = teams;
+        const [aGoals, bGoals] = score;
+
+        const a = normTeam(aName);
+        const b = normTeam(bName);
+
+        const sa = ensure(stats, a);
+        const sb = ensure(stats, b);
+
+        setH2H(h2hMap, a, b, aGoals, bGoals);
+
+        sa.GF += aGoals; sa.GS += bGoals;
+        sb.GF += bGoals; sb.GS += aGoals;
+
+        if (aGoals > bGoals) {
+          sa.V += 1; sa.PT += POINTS_WIN;
+          sb.S += 1; sb.PT += POINTS_LOSS;
+        } else if (aGoals < bGoals) {
+          sb.V += 1; sb.PT += POINTS_WIN;
+          sa.S += 1; sa.PT += POINTS_LOSS;
+        } else {
+          sa.P += 1; sb.P += 1;
+          sa.PT += POINTS_DRAW; sb.PT += POINTS_DRAW;
+        }
+      });
+
+      for (const v of stats.values()) v.DR = v.GF - v.GS;
+      return { stats, h2hMap };
+    }
+
+    function applyToClassifica(stats) {
+      document.querySelectorAll(".classifica tbody tr").forEach(tr => {
+        const cells = tr.querySelectorAll("td");
+        if (cells.length < 8) return;
+
+        const key = normTeam(cells[0].textContent);
+        const s = stats.get(key);
+
+        const set0 = (i) => (cells[i].textContent = "0");
+
+        if (!s) {
+          set0(1); set0(2); set0(3); set0(4); set0(5); set0(6); set0(7);
+          return;
+        }
+
+        cells[1].textContent = s.PT;
+        cells[2].textContent = s.V;
+        cells[3].textContent = s.P;
+        cells[4].textContent = s.S;
+        cells[5].textContent = s.GF;
+        cells[6].textContent = s.GS;
+        cells[7].textContent = s.DR;
+      });
+    }
+
+    function toIntCell(tr, idx) {
+      const t = tr.querySelectorAll("td")[idx]?.textContent ?? "0";
+      const n = parseInt(String(t).trim(), 10);
+      return Number.isFinite(n) ? n : 0;
+    }
+
+    function sortAndRankClassifica(h2hMap) {
+      const tbody = document.querySelector(".classifica tbody");
+      if (!tbody) return;
+
+      const rows = Array.from(tbody.querySelectorAll("tr"));
+      rows.forEach(r => r.classList.remove("rank-oro", "rank-argento", "rank-bronzo"));
+
+      rows.sort((ra, rb) => {
+        const aName = (ra.querySelector("td")?.textContent || "").trim();
+        const bName = (rb.querySelector("td")?.textContent || "").trim();
+        const aKey = normTeam(aName);
+        const bKey = normTeam(bName);
+
+        const aPT = toIntCell(ra, 1), bPT = toIntCell(rb, 1);
+        if (bPT !== aPT) return bPT - aPT;
+
+        const h2h = getH2HResult(h2hMap, aKey, bKey);
+        if (h2h !== 0) return -h2h;
+
+        const aGF = toIntCell(ra, 5), bGF = toIntCell(rb, 5);
+        if (bGF !== aGF) return bGF - aGF;
+
+        const aDR = toIntCell(ra, 7), bDR = toIntCell(rb, 7);
+        if (bDR !== aDR) return bDR - aDR;
+
+        return aName.localeCompare(bName, "it");
+      });
+
+      rows.forEach(r => tbody.appendChild(r));
+
+      rows.forEach((r, i) => {
+        if (i < 3) r.classList.add("rank-oro");
+        else if (i < 6) r.classList.add("rank-argento");
+        else r.classList.add("rank-bronzo");
+      });
+    }
+
+    function run() {
+      const { stats, h2hMap } = computeFromIncontri();
+      applyToClassifica(stats);
+      sortAndRankClassifica(h2hMap);
+    }
+
+    run();
+
+    const incontriTable = document.querySelector(".girone table");
+    if (incontriTable) {
+      const obs = new MutationObserver(() => run());
+      obs.observe(incontriTable, { subtree:true, characterData:true, childList:true });
+    }
+  })();
+  </script>
+</body>
+</html>
