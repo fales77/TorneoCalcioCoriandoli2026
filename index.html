@@ -366,6 +366,18 @@
     padding: 6px 3px;
   }
 }
+/* Spazio tra barra colorata e testo */
+.ranking th:first-child,
+.ranking td:first-child {
+  padding-left: 15px !important;
+}
+
+@media (max-width: 768px) {
+  .ranking th:first-child,
+  .ranking td:first-child {
+    padding-left: 18px !important;   /* prova tra 16 e 20px */
+  }
+}
   /* ==========================================================
      SECTION: CLASSIFICA + LEGEND
   ========================================================== */
