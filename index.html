@@ -60,7 +60,7 @@
   .shell{
     max-width:1280px;
     margin:0 auto;
-    padding:28px 22px 40px;
+    padding:12px 22px 30px;
   }
 
  .layout{
@@ -80,54 +80,71 @@
 
   .finals{grid-column:1 / -1;}
 
-  /* ==========================================================
+/* ==========================================================
      HEADER (topbar)
   ========================================================== */
-  .topbar{
-    display:flex;
-    align-items:flex-start;
-    justify-content:space-between;
-    gap:18px;
-    padding:18px 18px 16px;
-    background:
-      repeating-linear-gradient(
-        135deg,
-        var(--stripeA) 0 98px,
-        var(--stripeB) 98px 196px
-      ),
-      rgba(255,255,255,.82);
-    border:1px solid var(--line);
-    border-radius:16px;
-    box-shadow:var(--shadow);
-    backdrop-filter:blur(8px);
-  }
+.topbar{
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  padding: 8px 22px 20px;           /* spazio per il meta in basso */
+  background:
+    repeating-linear-gradient(
+      135deg,
+      var(--stripeA) 0 98px,
+      var(--stripeB) 98px 196px
+    ),
+    rgba(255,255,255,.82);
+  border:1px solid var(--line);
+  border-radius:16px;
+  box-shadow:var(--shadow);
+  backdrop-filter:blur(8px);
+}
 
-  .title{min-width:320px;}
-  .title-row{
-    display:flex;
-    align-items:baseline;
-    gap:12px;
-    white-space:nowrap;
-  }
-  .title-row h1{
-    margin:0;
-    font-size:22px;
-    letter-spacing:.2px;
-    line-height:1.08;
-  }
-  .title-row .sub{
-    margin:0;
-    font-size:13px;
-    color:var(--ink);
-  }
-  .meta{
-    text-align:right;
-    font-size:12px;
-    color:var(--ink);
-    line-height:1.35;
-    white-space:nowrap;
-  }
+/* ===================== TITOLO CENTRATO ===================== */
+.title {
+  text-align: center;
+  width: 100%;
+}
 
+.title h1 {
+  margin: 0 0 10px 0;
+  font-size: 26px;
+  line-height: 1.05;
+  letter-spacing: .3px;
+}
+
+.sub-main {
+  font-size: 15px;
+  color: var(--ink);
+  font-weight: 500;
+}
+
+/* ===================== META IN BASSO A DESTRA ===================== */
+.meta-bottom {
+  position: absolute;
+  bottom: 16px;
+  right: 22px;
+  text-align: right;
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.35;
+  white-space: nowrap;
+}
+
+/* ===================== RESPONSIVE ===================== */
+@media (max-width: 1024px) {
+  .topbar {
+    padding-bottom: 18px;
+  }
+  
+  .meta-bottom {
+    position: static;
+    text-align: center;
+    margin-top: 12px;
+    white-space: normal;
+  }
+}
   /* ==========================================================
      CARD (contenitore comune)
   ========================================================== */
@@ -458,20 +475,18 @@
 
 <body>
   <main class="shell">
-    <!-- ===================== HEADER ====================== -->
-    <header class="topbar">
-      <div class="title">
-        <div class="title-row">
-          <h1>19° CALCIO &amp; CORIANDOLI</h1>
-          <div class="sub">&emsp; Categoria Esordienti 1° anno &emsp;&emsp;(Under 12 - 2014) &emsp;&emsp; tempo unico 25'</div>
-        </div>
-      </div>
+  
+   <!-- ===================== HEADER ====================== -->
+<header class="topbar">
+  <div class="title">
+    <h1>19° CALCIO & CORIANDOLI</h1>
+    <div class="sub-main">Categoria Esordienti 1° anno (Under 12 - 2014)</div>
+  </div>
 
-      <div class="meta">
-        <div>Campo: ASD Venaria Reale</div>
-        <div>Via San Marchese, 27 · Venaria Reale</div>
-      </div>
-    </header>
+  <div class="meta-bottom">
+    Campo: ASD Venaria Reale — Via San Marchese, 27 · Venaria Reale
+  </div>
+</header>
 
     <!-- ===================== MAIN GRID ==================== -->
     <section class="layout">
