@@ -169,6 +169,23 @@
     justify-content:center;
     gap:8px;
   }
+  
+  /* Sottotitolo piccolo sotto i titoli delle card */
+.card h2 .subtitle {
+  font-size: 13px;
+  font-weight: normal;
+  color: var(--muted);
+  margin-left: 8px;
+  letter-spacing: 0.2px;
+}
+
+/* Opzionale: se vuoi che stia sulla stessa riga anche su schermi piccoli */
+@media (max-width: 600px) {
+  .card h2 .subtitle {
+    display: block;
+    margin: 4px 0 0 28px;
+  }
+}
 
   /* ==========================================================
      UI ELEMENTS
@@ -245,8 +262,8 @@
   .girone th.col-match,.girone td.col-match{width:auto;}
 
   /* respiro Data | Ora */
-  .girone th.col-date,.girone td.col-date{padding-right:10px;}
-  .girone th.col-time,.girone td.col-time{padding-left:10px; padding-right:14px;}
+  .girone th.col-date,.girone td.col-date{padding-right:8px;}
+  .girone th.col-time,.girone td.col-time{padding-left:4px; padding-right:8px;}
 
   /* match a sinistra */
   .girone thead th.col-match,
@@ -508,7 +525,7 @@
 
       <!-- 2) INCONTRI -->
       <section class="card girone">
-        <h2><span class="dot"></span> Girone Incontri</h2>
+		<h2><span class="dot"></span> Girone Incontri <span class="subtitle">(tempo unico da 25 minuti)</span></h2>
 
         <table aria-label="Calendario girone unico">
           <thead>
