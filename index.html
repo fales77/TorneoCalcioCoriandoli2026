@@ -313,32 +313,37 @@
     text-transform:uppercase; font-size:13px; white-space:nowrap;
   }
   .final-winner{ font-size:12px; white-space:nowrap; }
-  .final-winner span{ font-weight:700; letter-spacing:.2px; }
+  .final-winner span{ font-weight:800; letter-spacing:.35px; text-transform:uppercase; font-size:13px; }
 
-  .final-box.bronzo  .final-title{ color:rgba(180,83,9,.95); }
-  .final-box.argento .final-title{ color:rgba(100,116,139,.95); }
-  .final-box.oro     .final-title{ color:rgba(202,138,4,.95); }
+  .final-box.bronzo  .final-title,
+  .final-box.bronzo  .final-winner span{ color:rgba(180,83,9,.95); }
+  .final-box.argento .final-title,
+  .final-box.argento .final-winner span{ color:rgba(100,116,139,.95); }
+  .final-box.oro     .final-title,
+  .final-box.oro     .final-winner span{ color:rgba(202,138,4,.95); }
 
   .final-box table{ table-layout:auto; font-size:14px; line-height:1.15; }
-  .final-box th, .final-box td{ padding:4px 8px; }
+  .final-box th, .final-box td{ padding:4px 6px; }
 
   .final-box th.col-date, .final-box td.col-date,
   .final-box th.col-time, .final-box td.col-time,
   .final-box th.col-res,  .final-box td.col-res{ width:1%; white-space:nowrap; }
   .final-box th.col-match, .final-box td.col-match{ width:auto; }
 
+  /* respiro Data | Ora — identico al girone principale */
+  .final-box th.col-date, .final-box td.col-date{ padding-right:4px; }
+  .final-box th.col-time, .final-box td.col-time{ padding-left:2px; padding-right:4px; }
+
   .final-box thead th.col-match,
   .final-box tbody td.col-match{ text-align:left; }
 
-  .final-box th.col-match, .final-box td.col-match{ padding-right:0; }
-  .final-box th.col-res,   .final-box td.col-res{ padding-left:0; text-align:center; }
+  .final-box th.col-match, .final-box td.col-match{ padding-right:1px; }
+  .final-box th.col-res,   .final-box td.col-res{ padding-left:1px; text-align:center; }
 
   .final-box tbody td{ position:relative; }
   .final-box.bronzo  tbody td:first-child{ box-shadow:inset 5px 0 0 var(--rank-bronzo); }
   .final-box.argento tbody td:first-child{ box-shadow:inset 5px 0 0 var(--rank-argento); }
   .final-box.oro     tbody td:first-child{ box-shadow:inset 5px 0 0 var(--rank-oro); }
-
-  .final-box td.col-date{ padding-left:10px; }
 
   /* Stile placeholder: testo grigio quando classifica incompleta */
   .final-box td.placeholder-match {
@@ -427,7 +432,7 @@
             <tr><td class="col-date">08/02</td><td class="col-time">12:00</td><td class="col-match">Lucento vs Venaria Reale</td><td class="col-res">5 - 0</td><td class="col-note muted">B</td></tr>
             <tr><td class="col-date">08/02</td><td class="col-time">12:30</td><td class="col-match">Cesena vs Vanchiglia</td><td class="col-res">0 - 0</td><td class="col-note muted">B</td></tr>
             <tr><td class="col-date">08/02</td><td class="col-time">13:00</td><td class="col-match">Cesena vs Pro Eureka</td><td class="col-res">1 - 3</td><td class="col-note muted">B</td></tr>
-            <tr><td class="col-date">08/02</td><td class="col-time">13:30</td><td class="col-match">Vanchiglia vs Pro Eureka</td><td class="col-res"> - </td><td class="col-note muted">B</td></tr>
+            <tr><td class="col-date">08/02</td><td class="col-time">13:30</td><td class="col-match">Vanchiglia vs Pro Eureka</td><td class="col-res">0 - 2</td><td class="col-note muted">B</td></tr>
           </tbody>
         </table>
       </section>
@@ -486,7 +491,7 @@
           <div class="final-box bronzo">
             <div class="final-head">
               <div class="final-title"><i class="legend-dot bronzo"></i> Girone Bronzo</div>
-              <div class="final-winner" id="bronzo-winner">Da definire</div>
+              <div class="final-winner" id="bronzo-winner"></div>
             </div>
             <table aria-label="Girone Bronzo">
               <thead>
@@ -497,7 +502,11 @@
                   <th class="col-res">RIS</th>
                 </tr>
               </thead>
-              <tbody id="bronzo-body"></tbody>
+              <tbody id="bronzo-body">
+                <tr><td class="col-date">08/02</td><td class="col-time">14:00</td><td class="col-match" data-slot="b0"></td><td class="col-res">0 - 0</td></tr>
+                <tr><td class="col-date">08/02</td><td class="col-time">14:30</td><td class="col-match" data-slot="b1"></td><td class="col-res">1 - 0</td></tr>
+                <tr><td class="col-date">08/02</td><td class="col-time">15:00</td><td class="col-match" data-slot="b2"></td><td class="col-res">3 - 2</td></tr>
+              </tbody>
             </table>
           </div>
 
@@ -505,7 +514,7 @@
           <div class="final-box argento">
             <div class="final-head">
               <div class="final-title"><i class="legend-dot argento"></i> Girone Argento</div>
-              <div class="final-winner" id="argento-winner">Da definire</div>
+              <div class="final-winner" id="argento-winner"></div>
             </div>
             <table aria-label="Girone Argento">
               <thead>
@@ -516,7 +525,11 @@
                   <th class="col-res">RIS</th>
                 </tr>
               </thead>
-              <tbody id="argento-body"></tbody>
+              <tbody id="argento-body">
+                <tr><td class="col-date">08/02</td><td class="col-time">15:30</td><td class="col-match" data-slot="a0"></td><td class="col-res">0 - 2</td></tr>
+                <tr><td class="col-date">08/02</td><td class="col-time">16:00</td><td class="col-match" data-slot="a1"></td><td class="col-res">1 - 1</td></tr>
+                <tr><td class="col-date">08/02</td><td class="col-time">16:30</td><td class="col-match" data-slot="a2"></td><td class="col-res">2 - 1</td></tr>
+              </tbody>
             </table>
           </div>
 
@@ -524,7 +537,7 @@
           <div class="final-box oro">
             <div class="final-head">
               <div class="final-title"><i class="legend-dot oro"></i> Girone Oro</div>
-              <div class="final-winner" id="oro-winner">Da definire</div>
+              <div class="final-winner" id="oro-winner"></div>
             </div>
             <table aria-label="Girone Oro">
               <thead>
@@ -535,7 +548,11 @@
                   <th class="col-res">RIS</th>
                 </tr>
               </thead>
-              <tbody id="oro-body"></tbody>
+              <tbody id="oro-body">
+                <tr><td class="col-date">08/02</td><td class="col-time">17:00</td><td class="col-match" data-slot="o0"></td><td class="col-res">0 - 0</td></tr>
+                <tr><td class="col-date">08/02</td><td class="col-time">17:30</td><td class="col-match" data-slot="o1"></td><td class="col-res">0 - 2</td></tr>
+                <tr><td class="col-date">08/02</td><td class="col-time">18:00</td><td class="col-match" data-slot="o2"></td><td class="col-res">0 - 2</td></tr>
+              </tbody>
             </table>
           </div>
 
@@ -719,79 +736,114 @@
     }
 
     /**
-     * Popola le fasi finali.
-     *
-     * Se il girone NON è completo (completedCount < TOTAL_MATCHES):
-     *   → mostra data/ora fisse + nomi placeholder (SQ1–SQ3 / SQ4–SQ6 / SQ7–SQ9)
-     *     con il naming che rispecchia la posizione in classifica:
-     *       Bronzo:  SQ9 - SQ8 / SQ7 - SQ8 / SQ7 - SQ9
-     *       Argento: SQ6 - SQ5 / SQ4 - SQ5 / SQ4 - SQ6
-     *       Oro:     SQ3 - SQ2 / SQ1 - SQ2 / SQ1 - SQ3
-     *
-     * Se il girone è completo:
-     *   → sostituisce i placeholder con i nomi reali dalla classifica.
+     * Aggiorna le fasi finali:
+     *  - Se girone incompleto: placeholder (SQ1…SQ9) in corsivo grigio
+     *  - Se girone completo:   nomi reali nelle celle col-match (preservando i risultati)
+     * In entrambi i casi calcola il vincitore di ogni girone finale
+     * se tutti e 3 i risultati sono valorizzati.
      */
     function updateFasiFinali(completedCount) {
-      const bronzoBody  = document.getElementById("bronzo-body");
-      const argentoBody = document.getElementById("argento-body");
-      const oroBody     = document.getElementById("oro-body");
-      if (!bronzoBody || !argentoBody || !oroBody) return;
-
-      bronzoBody.innerHTML  = "";
-      argentoBody.innerHTML = "";
-      oroBody.innerHTML     = "";
-
       const gironeCompleto = (completedCount >= TOTAL_MATCHES);
 
-      // Leggi l'ordine attuale della classifica
+      // Leggi classifica corrente
       const sortedTeams = Array.from(
         document.querySelectorAll(".classifica tbody tr td:first-child")
       ).map(td => td.textContent.trim());
 
-      // Helper: crea una riga TR
-      function makeRow(date, time, matchHtml, resText, isPlaceholder) {
-        const tr = document.createElement("tr");
-        const matchClass = isPlaceholder ? "col-match placeholder-match" : "col-match";
-        tr.innerHTML = `
-          <td class="col-date">${date}</td>
-          <td class="col-time">${time}</td>
-          <td class="${matchClass}">${matchHtml}</td>
-          <td class="col-res">—</td>
-        `;
-        return tr;
-      }
+      // Struttura dei 3 gironi: slot → [teamA, teamB]  (indici in sortedTeams, base 0)
+      // Bronzo:  9°(idx8) vs 8°(idx7) / 7°(idx6) vs 8°(idx7) / 7°(idx6) vs 9°(idx8)
+      // Argento: 6°(idx5) vs 5°(idx4) / 4°(idx3) vs 5°(idx4) / 4°(idx3) vs 6°(idx5)
+      // Oro:     3°(idx2) vs 2°(idx1) / 1°(idx0) vs 2°(idx1) / 1°(idx0) vs 3°(idx2)
+      const groups = {
+        b: gironeCompleto
+          ? [ [sortedTeams[8], sortedTeams[7]],
+              [sortedTeams[6], sortedTeams[7]],
+              [sortedTeams[6], sortedTeams[8]] ]
+          : [ ["SQ9","SQ8"], ["SQ7","SQ8"], ["SQ7","SQ9"] ],
+        a: gironeCompleto
+          ? [ [sortedTeams[5], sortedTeams[4]],
+              [sortedTeams[3], sortedTeams[4]],
+              [sortedTeams[3], sortedTeams[5]] ]
+          : [ ["SQ6","SQ5"], ["SQ4","SQ5"], ["SQ4","SQ6"] ],
+        o: gironeCompleto
+          ? [ [sortedTeams[2], sortedTeams[1]],
+              [sortedTeams[0], sortedTeams[1]],
+              [sortedTeams[0], sortedTeams[2]] ]
+          : [ ["SQ3","SQ2"], ["SQ1","SQ2"], ["SQ1","SQ3"] ],
+      };
 
-      // Helper: popola un corpo tabella con 3 righe
-      // teams = [t1, t2, t3] → partite: t1-t2, t3-t2, t3-t1
-      function fillBody(body, t1, t2, t3, isPlaceholder, schedule) {
-        schedule.forEach((slot, i) => {
-          let matchA, matchB;
-          if (i === 0) { matchA = t1; matchB = t2; }
-          else if (i === 1) { matchA = t3; matchB = t2; }
-          else              { matchA = t3; matchB = t1; }
-          body.appendChild(makeRow(slot.date, slot.time, `${matchA} - ${matchB}`, "—", isPlaceholder));
+      // Aggiorna testo nelle celle col-match tramite data-slot
+      ["b","a","o"].forEach(prefix => {
+        groups[prefix].forEach((pair, i) => {
+          const cell = document.querySelector(`[data-slot="${prefix}${i}"]`);
+          if (!cell) return;
+          const isPlaceholder = !gironeCompleto;
+          cell.textContent = `${pair[0]} - ${pair[1]}`;
+          cell.classList.toggle("placeholder-match", isPlaceholder);
         });
-      }
+      });
 
-      if (!gironeCompleto) {
-        // Placeholder con numeri di posizione in classifica
-        // Bronzo  = posizioni 7-8-9 (array idx 6,7,8)
-        // Argento = posizioni 4-5-6 (array idx 3,4,5)
-        // Oro     = posizioni 1-2-3 (array idx 0,1,2)
-        fillBody(bronzoBody,  "SQ9", "SQ8", "SQ7", true,  FINALS_SCHEDULE.bronzo);
-        fillBody(argentoBody, "SQ6", "SQ5", "SQ4", true,  FINALS_SCHEDULE.argento);
-        fillBody(oroBody,     "SQ3", "SQ2", "SQ1", true,  FINALS_SCHEDULE.oro);
-      } else {
-        // Girone completo: usa nomi reali
-        // sortedTeams[0] = 1°, sortedTeams[8] = 9°
-        const bronzo  = [sortedTeams[8], sortedTeams[7], sortedTeams[6]]; // SQ9, SQ8, SQ7
-        const argento = [sortedTeams[5], sortedTeams[4], sortedTeams[3]]; // SQ6, SQ5, SQ4
-        const oro     = [sortedTeams[2], sortedTeams[1], sortedTeams[0]]; // SQ3, SQ2, SQ1
+      // Calcola e mostra il vincitore per ogni girone finale
+      // Un vincitore è determinato solo se tutti e 3 i risultati sono valorizzati
+      ["bronzo","argento","oro"].forEach(group => {
+        const prefix = group === "bronzo" ? "b" : group === "argento" ? "a" : "o";
+        const winnerEl = document.getElementById(`${group}-winner`);
+        if (!winnerEl) return;
 
-        fillBody(bronzoBody,  bronzo[0],  bronzo[1],  bronzo[2],  false, FINALS_SCHEDULE.bronzo);
-        fillBody(argentoBody, argento[0], argento[1], argento[2], false, FINALS_SCHEDULE.argento);
-        fillBody(oroBody,     oro[0],     oro[1],     oro[2],     false, FINALS_SCHEDULE.oro);
-      }
+        const body = document.getElementById(`${group}-body`);
+        if (!body) return;
+
+        const rows = body.querySelectorAll("tr");
+        const scores = [];
+        rows.forEach(tr => {
+          const res = tr.querySelector(".col-res")?.textContent?.trim();
+          scores.push(parseScoreText(res));
+        });
+
+        // Tutti e 3 valorizzati?
+        if (scores.some(s => s === null)) {
+          winnerEl.textContent = "";
+          return;
+        }
+
+        // Mini classifica del girone finale (3 squadre, 3 partite round-robin)
+        const teamsList = gironeCompleto
+          ? (prefix === "b"
+              ? [sortedTeams[8], sortedTeams[7], sortedTeams[6]]
+              : prefix === "a"
+              ? [sortedTeams[5], sortedTeams[4], sortedTeams[3]]
+              : [sortedTeams[2], sortedTeams[1], sortedTeams[0]])
+          : null;
+
+        if (!teamsList) { winnerEl.textContent = ""; return; }
+
+        // Partite: riga0 = t[0] vs t[1], riga1 = t[2] vs t[1], riga2 = t[2] vs t[0]
+        const pts = [0, 0, 0];
+        const dr  = [0, 0, 0];
+        const gf  = [0, 0, 0];
+
+        const addResult = (iA, iB, gA, gB) => {
+          gf[iA] += gA; dr[iA] += gA - gB;
+          gf[iB] += gB; dr[iB] += gB - gA;
+          if (gA > gB)       { pts[iA] += 3; }
+          else if (gA < gB)  { pts[iB] += 3; }
+          else               { pts[iA] += 1; pts[iB] += 1; }
+        };
+
+        addResult(0, 1, scores[0][0], scores[0][1]); // riga0: t0 vs t1
+        addResult(2, 1, scores[1][0], scores[1][1]); // riga1: t2 vs t1
+        addResult(2, 0, scores[2][0], scores[2][1]); // riga2: t2 vs t0
+
+        // Trova il primo classificato
+        const order = [0,1,2].sort((a,b) => {
+          if (pts[b] !== pts[a]) return pts[b] - pts[a];
+          if (dr[b]  !== dr[a])  return dr[b]  - dr[a];
+          return gf[b] - gf[a];
+        });
+
+        const winner = teamsList[order[0]];
+        winnerEl.innerHTML = `Vincitrice: <span>${winner}</span>`;
+      });
     }
 
     function run() {
@@ -808,6 +860,17 @@
       const obs = new MutationObserver(run);
       obs.observe(incontriTable, { subtree: true, characterData: true, childList: true });
     }
+
+    // Observer sulle tabelle finali: ricalcola i vincitori quando cambiano i risultati
+    ["bronzo-body","argento-body","oro-body"].forEach(id => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      const obs = new MutationObserver(() => {
+        const { completedCount } = computeFromIncontri();
+        updateFasiFinali(completedCount);
+      });
+      obs.observe(el, { subtree: true, characterData: true, childList: true });
+    });
   })();
   </script>
 </body>
