@@ -3,45 +3,30 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>19° Calcio &amp; Coriandoli – Calendario Torneo (U12)</title>
+  <title>19° Calcio &amp; Coriandoli – Categoria U12</title>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%E2%9A%BD%3C/text%3E%3C/svg%3E">
 
   <style>
-  /* ==========================================================
-     DESIGN TOKENS
-  ========================================================== */
   :root{
     --ink:#111;
     --muted:#5b6470;
     --line:#d7dde6;
-
     --pill:#f2f5fa;
-
-    --accent:#0aa36b;    /* Incontri */
-    --accent2:#f2b705;   /* Oro */
-    --accent3:#2f7ad9;   /* Squadre */
-    --accent4:#dc2626;   /* Classifica */
-
+    --accent:#0aa36b;
+    --accent2:#f2b705;
+    --accent3:#2f7ad9;
+    --accent4:#dc2626;
     --shadow: 0 10px 28px rgba(0,0,0,.10);
-
-    /* Strisce topbar */
-    --stripeA: rgba(255, 170, 0, .9);   /* arancio sole */
-    --stripeB: rgba(50, 140, 50, .9);   /* verde scuro */
-
-    /* Tabelle: zebra + hover */
+    --stripeA: rgba(255, 170, 0, .9);
+    --stripeB: rgba(50, 140, 50, .9);
     --rowA:#ffffff;
     --rowB:#f6f7f9;
     --rowH:#eceff3;
-
-    /* Barre “fasce” (come Classifica) */
     --rank-oro: rgba(242,183,5,.70);
     --rank-argento: rgba(148,163,184,.75);
     --rank-bronzo: rgba(180,83,9,.65);
   }
 
-  /* ==========================================================
-     BASE / PAGE
-  ========================================================== */
   html,body{height:100%;}
   body{
     margin:0;
@@ -54,100 +39,82 @@
   }
   .muted{color:var(--muted);}
 
-  /* ==========================================================
-     WRAPPER + GRID
-  ========================================================== */
   .shell{
     max-width:1260px;
     margin:0 auto;
     padding:12px 12px 24px;
   }
 
- .layout{
-  margin-top:16px;
-  display:grid;
-  gap:18px;
-
-  /* Squadre più stretto (≈ -10%) + Classifica più larga (≈ +10%) */
-  grid-template-columns:
-    clamp(180px, 16vw, 199px)      /* Squadre */
-    minmax(520px, 1.395fr)         /* Incontri */
-    minmax(360px, 1.392fr);        /* Classifica */
-
-  align-items:stretch;
-}
-
+  .layout{
+    margin-top:16px;
+    display:grid;
+    gap:18px;
+    grid-template-columns:
+      clamp(180px, 16vw, 199px)
+      minmax(520px, 1.395fr)
+      minmax(360px, 1.392fr);
+    align-items:stretch;
+  }
 
   .finals{grid-column:1 / -1;}
 
-/* ==========================================================
-     HEADER (topbar)
-  ========================================================== */
-.topbar{
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  padding: 8px 22px 20px;           /* spazio per il meta in basso */
-  background:
-    repeating-linear-gradient(
-      135deg,
-      var(--stripeA) 0 98px,
-      var(--stripeB) 98px 196px
-    ),
-    rgba(255,255,255,.82);
-  border:1px solid var(--line);
-  border-radius:16px;
-  box-shadow:var(--shadow);
-  backdrop-filter:blur(8px);
-}
-
-/* ===================== TITOLO CENTRATO ===================== */
-.title {
-  text-align: center;
-  width: 100%;
-}
-
-.title h1 {
-  margin: 0 0 10px 0;
-  font-size: 26px;
-  line-height: 1.05;
-  letter-spacing: .3px;
-}
-
-.sub-main {
-  font-size: 15px;
-  color: var(--ink);
-  font-weight: 500;
-}
-
-/* ===================== META IN BASSO A DESTRA ===================== */
-.meta-bottom {
-  position: absolute;
-  bottom: 16px;
-  right: 22px;
-  text-align: right;
-  font-size: 13px;
-  color: var(--muted);
-  line-height: 1.35;
-  white-space: nowrap;
-}
-
-/* ===================== RESPONSIVE ===================== */
-@media (max-width: 1024px) {
-  .topbar {
-    padding-bottom: 18px;
+  .topbar{
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    padding: 8px 22px 20px;
+    background:
+      repeating-linear-gradient(
+        135deg,
+        var(--stripeA) 0 98px,
+        var(--stripeB) 98px 196px
+      ),
+      rgba(255,255,255,.82);
+    border:1px solid var(--line);
+    border-radius:16px;
+    box-shadow:var(--shadow);
+    backdrop-filter:blur(8px);
   }
-  
-  .meta-bottom {
-    position: static;
+
+  .title {
     text-align: center;
-    margin-top: 12px;
-    white-space: normal;
+    width: 100%;
   }
-}
-  /* ==========================================================
-     CARD (contenitore comune)
-  ========================================================== */
+
+  .title h1 {
+    margin: 0 0 10px 0;
+    font-size: 26px;
+    line-height: 1.05;
+    letter-spacing: .3px;
+  }
+
+  .sub-main {
+    font-size: 15px;
+    color: var(--ink);
+    font-weight: 500;
+  }
+
+  .meta-bottom {
+    position: absolute;
+    bottom: 16px;
+    right: 22px;
+    text-align: right;
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.35;
+    white-space: nowrap;
+  }
+
+  @media (max-width: 1024px) {
+    .topbar { padding-bottom: 18px; }
+    .meta-bottom {
+      position: static;
+      text-align: center;
+      margin-top: 12px;
+      white-space: normal;
+    }
+  }
+
   .card{
     border:1px solid var(--line);
     border-radius:12px;
@@ -169,32 +136,22 @@
     justify-content:center;
     gap:6px;
   }
-  
-  /* Sottotitolo piccolo sotto i titoli delle card */
-.card h2 .subtitle {
-  font-size: 11px;
-  font-weight: normal;
-  color: var(--muted);
-  margin-left: 6px;
-  text-transform: none;           /* ← Questo è importante */
-  letter-spacing: normal;
-}
 
-/* Opzionale: se vuoi che stia sulla stessa riga anche su schermi piccoli */
-@media (max-width: 600px) {
   .card h2 .subtitle {
-    display: block;
-    margin: 4px 0 0 20px;
+    font-size: 11px;
+    font-weight: normal;
+    color: var(--muted);
+    margin-left: 6px;
+    text-transform: none;
+    letter-spacing: normal;
   }
-}
 
-  /* ==========================================================
-     UI ELEMENTS
-  ========================================================== */
+  @media (max-width: 600px) {
+    .card h2 .subtitle { display: block; margin: 4px 0 0 20px; }
+  }
+
   .dot{
-    width:10px;
-    height:10px;
-    border-radius:50%;
+    width:10px; height:10px; border-radius:50%;
     background:var(--accent);
     box-shadow:0 0 0 4px rgba(10,163,107,.12);
     flex:0 0 10px;
@@ -204,213 +161,105 @@
   .dot.red {background:var(--accent4); box-shadow:0 0 0 4px rgba(220,38,38,.14);}
 
   .pill{
-    display:inline-block;
-    padding:4px 10px;
-    border-radius:999px;
-    background:var(--pill);
-    color:var(--muted);
-    font-weight:700;
-    font-size:11px;
-    letter-spacing:.2px;
-    border:1px solid rgba(0,0,0,.03);
+    display:inline-block; padding:4px 10px; border-radius:999px;
+    background:var(--pill); color:var(--muted); font-weight:700;
+    font-size:11px; letter-spacing:.2px; border:1px solid rgba(0,0,0,.03);
   }
 
-  /* ==========================================================
-     TABLE SYSTEM (base)
-  ========================================================== */
-  table{
-    width:100%;
-    border-collapse:collapse;
-    font-size:14px;
-    line-height:1.15;
-  }
-  th,td{
-    border-bottom:1px solid var(--line);
-    padding:6px 10px;
-    vertical-align:middle;
-  }
+  table{ width:100%; border-collapse:collapse; font-size:14px; line-height:1.15; }
+  th,td{ border-bottom:1px solid var(--line); padding:6px 10px; vertical-align:middle; }
   thead th{
-    font-size:14px;
-    letter-spacing:.35px;
-    text-transform:none;
-    color:var(--muted);
-    background:linear-gradient(to bottom,#fff,#fbfcfe);
+    font-size:14px; letter-spacing:.35px; text-transform:none;
+    color:var(--muted); background:linear-gradient(to bottom,#fff,#fbfcfe);
     border-top:1px solid var(--line);
   }
   tr:last-child td{border-bottom:0;}
 
   .col-date,.col-time,
   th.col-date,th.col-time{
-    white-space:nowrap;
-    text-align:center;
-    font-variant-numeric:tabular-nums;
-    font-feature-settings:"tnum" 1;
+    white-space:nowrap; text-align:center;
+    font-variant-numeric:tabular-nums; font-feature-settings:"tnum" 1;
   }
 
-  /* ==========================================================
-     SECTION: INCONTRI
-  ========================================================== */
   .girone table{table-layout:auto;}
   .girone th,.girone td{padding:4px 6px;}
 
   .girone th.col-date,.girone td.col-date,
   .girone th.col-time,.girone td.col-time,
   .girone th.col-res, .girone td.col-res,
-  .girone th.col-note,.girone td.col-note{
-    width:1%;
-    white-space:nowrap;
-  }
+  .girone th.col-note,.girone td.col-note{ width:1%; white-space:nowrap; }
   .girone th.col-match,.girone td.col-match{width:auto;}
 
-  /* respiro Data | Ora */
   .girone th.col-date,.girone td.col-date{padding-right:4px;}
   .girone th.col-time,.girone td.col-time{padding-left:2px; padding-right:4px;}
 
-  /* match a sinistra */
   .girone thead th.col-match,
   .girone tbody td.col-match{ text-align:left; }
 
-  /* FIT tra match e risultato */
   .girone th.col-match, .girone td.col-match{ padding-right:1; }
   .girone th.col-res,   .girone td.col-res{ padding-left:1; text-align:center; }
 
-  /* zebra + hover */
   .girone tbody tr:nth-child(odd){background:var(--rowA);}
   .girone tbody tr:nth-child(even){background:var(--rowB);}
   .girone tbody tr:hover{background:var(--rowH);}
   .girone tbody tr{transition:background-color 140ms ease;}
 
-  /* ==========================================================
-     SECTION: SQUADRE
-  ========================================================== */
   .teams{
-    flex:1 1 auto;
-    min-height:0;
-    display:grid;
-    grid-template-columns:1fr;
-    grid-template-rows:repeat(9,1fr);
-    gap:10px;
-    align-content:stretch;
+    flex:1 1 auto; min-height:0; display:grid;
+    grid-template-columns:1fr; grid-template-rows:repeat(9,1fr);
+    gap:10px; align-content:stretch;
   }
   .team{
-    display:flex;
-    align-items:center;
-    gap:10px;
-    padding:10px;
-    border:1px dashed var(--line);
-    border-radius:12px;
-    background:#fcfdff;
-    font-size:18px;
-    line-height:1.1;
-    min-width:0;
+    display:flex; align-items:center; gap:10px; padding:10px;
+    border:1px dashed var(--line); border-radius:12px;
+    background:#fcfdff; font-size:18px; line-height:1.1; min-width:0;
   }
   .badge{
-    width:20px;
-    height:20px;
-    border-radius:7px;
-    display:grid;
-    place-items:center;
-    background:#e9f7f1;
-    color:#087a50;
-    font-weight:800;
-    font-size:13px;
-    flex:0 0 20px;
+    width:20px; height:20px; border-radius:7px;
+    display:grid; place-items:center;
+    background:#e9f7f1; color:#087a50; font-weight:800; font-size:13px; flex:0 0 20px;
   }
 
-/* ===================== CLASSIFICA - NO WRAP & NO SCROLL ===================== */
-.ranking {
-  width: 100%;
-  table-layout: fixed;
-  border-collapse: collapse;
-}
+  .ranking { width:100%; table-layout:fixed; border-collapse:collapse; }
 
-.col-team {
-  text-align: left !important;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  font-weight: 600;
-  padding-left: 8px;
-}
-
-/* Larghezza colonne su desktop */
-@media (min-width: 769px) {
-  .col-team { width: 38%; }
-  .ranking th:nth-child(n+2) { width: 8.5%; }
-}
-
-/* COMPRESSIONE su Smartphone */
-@media (max-width: 768px) {
-  .ranking {
-    font-size: 13.2px;           /* testo più piccolo */
-  }
-  
   .col-team {
-    width: 36%;                  /* lascia spazio alle altre colonne */
-    min-width: 110px;
-    padding-left: 6px;
-    padding-right: 4px;
+    text-align:left !important; white-space:nowrap;
+    overflow:hidden; text-overflow:ellipsis;
+    font-weight:600; padding-left:8px;
   }
-  
-  .ranking th, .ranking td {
-    padding: 7px 4px;
-  }
-  
-  .ranking thead th {
-    font-size: 12.5px;
-  }
-  
-  /* Riduci un po' le intestazioni */
-  .ranking th:not(.col-team) {
-    font-size: 12px;
-    padding: 6px 3px;
-  }
-}
-/* Spazio tra barra colorata e testo */
-.ranking th:first-child,
-.ranking td:first-child {
-  padding-left: 10px !important;
-}
 
-@media (max-width: 768px) {
+  @media (min-width: 769px) {
+    .col-team { width: 38%; }
+    .ranking th:nth-child(n+2) { width: 8.5%; }
+  }
+
+  @media (max-width: 768px) {
+    .ranking { font-size: 13.2px; }
+    .col-team { width:36%; min-width:110px; padding-left:6px; padding-right:4px; }
+    .ranking th, .ranking td { padding: 7px 4px; }
+    .ranking thead th { font-size: 12.5px; }
+    .ranking th:not(.col-team) { font-size: 12px; padding: 6px 3px; }
+  }
+
   .ranking th:first-child,
-  .ranking td:first-child {
-    padding-left: 12px !important;   /* prova tra 16 e 20px */
-  }
-}
-/* ===================== STILE COLONNA PUNTI ===================== */
-.ranking tbody td:nth-child(2) {     /* Solo le celle dati (numeri) */
-  font-size: 15px !important;
-  font-weight: 800 !important;
-  color: #1565c0;                    /* Blu intenso */
-  letter-spacing: 0.5px;
-}
+  .ranking td:first-child { padding-left: 10px !important; }
 
-/* Opzionale: effetto hover sulla riga */
-.ranking tbody tr:hover td:nth-child(2) {
-  color: #0d47a1;
-}
-  /* ==========================================================
-     SECTION: CLASSIFICA + LEGEND
-  ========================================================== */
+  @media (max-width: 768px) {
+    .ranking th:first-child,
+    .ranking td:first-child { padding-left: 12px !important; }
+  }
+
+  .ranking tbody td:nth-child(2) {
+    font-size: 15px !important; font-weight: 800 !important;
+    color: #00695c; letter-spacing: 0.5px;
+  }
+
   .ranking th,.ranking td{text-align:center;}
   .ranking th:first-child,.ranking td:first-child{text-align:left;}
 
-  .classifica .ranking td:first-child{
-    font-size:15px;
-    font-weight:600;
-    letter-spacing:.1px;
-  }
-  .classifica .ranking tbody td{
-    padding-top:9px;
-    padding-bottom:9px;
-    line-height:1.25;
-  }
-  .classifica .ranking tbody td:not(:first-child){
-    font-size:14px;
-    font-weight:500;
-    font-variant-numeric:tabular-nums;
-  }
+  .classifica .ranking td:first-child{ font-size:15px; font-weight:600; letter-spacing:.1px; }
+  .classifica .ranking tbody td{ padding-top:9px; padding-bottom:9px; line-height:1.25; }
+  .classifica .ranking tbody td:not(:first-child){ font-size:14px; font-weight:500; font-variant-numeric:tabular-nums; }
 
   .classifica .ranking tbody tr.rank-oro td{background:rgba(242,183,5,.18);}
   .classifica .ranking tbody tr.rank-argento td{background:rgba(148,163,184,.22);}
@@ -421,112 +270,61 @@
   .classifica .ranking tbody tr.rank-bronzo td:first-child{box-shadow:inset 5px 0 0 var(--rank-bronzo);}
 
   .classifica-help{
-    margin-top:12px;
-    padding-top:10px;
-    border-top:1px dashed var(--line);
-    font-size:12px;
-    line-height:1.25;
+    margin-top:12px; padding-top:10px;
+    border-top:1px dashed var(--line); font-size:12px; line-height:1.25;
   }
   .classifica-help b{color:var(--ink);}
-    
 
-  /* Mini legenda gironi fase finale (una riga) */
   .finals-legend{
-    margin-top:8px;
-    display:flex;
-    align-items:center;
-    gap:14px;
-    flex-wrap:nowrap;
-    white-space:nowrap;
-    font-size:12px;
-    line-height:1.1;
-    color:var(--ink);
+    margin-top:8px; display:flex; align-items:center;
+    gap:14px; flex-wrap:nowrap; white-space:nowrap;
+    font-size:12px; line-height:1.1; color:var(--ink);
   }
-  .legend-item{
-    display:inline-flex;
-    align-items:center;
-    gap:8px;
-  }
+  .legend-item{ display:inline-flex; align-items:center; gap:8px; }
 
-  /* Pallini legenda (dimensione “ufficiale” 14px) */
   .legend-dot{
-    width:14px;
-    height:14px;
-    border-radius:999px;
-    flex:0 0 14px;
-    box-shadow:0 0 0 4px rgba(0,0,0,.06);
-    display:inline-block;
+    width:14px; height:14px; border-radius:999px;
+    flex:0 0 14px; box-shadow:0 0 0 4px rgba(0,0,0,.06); display:inline-block;
   }
-  .legend-dot.oro{ background: rgba(242,183,5,.95); box-shadow: 0 0 0 4px rgba(242,183,5,.18); }
-  .legend-dot.argento{ background: rgba(148,163,184,.95); box-shadow: 0 0 0 4px rgba(148,163,184,.22); }
-  .legend-dot.bronzo{ background: rgba(180,83,9,.95); box-shadow: 0 0 0 4px rgba(180,83,9,.18); }
+  .legend-dot.oro{ background:rgba(242,183,5,.95); box-shadow:0 0 0 4px rgba(242,183,5,.18); }
+  .legend-dot.argento{ background:rgba(148,163,184,.95); box-shadow:0 0 0 4px rgba(148,163,184,.22); }
+  .legend-dot.bronzo{ background:rgba(180,83,9,.95); box-shadow:0 0 0 4px rgba(180,83,9,.18); }
 
-  /* ==========================================================
-     SECTION: FASI FINALI (stesso stile di Incontri)
-  ========================================================== */
   .finals-row{
-    display:grid;
-    grid-template-columns:1fr 1fr 1fr;
-    gap:12px;
-    align-items:start;
+    display:grid; grid-template-columns:1fr 1fr 1fr;
+    gap:12px; align-items:start;
   }
   .final-box{
-    border:1px solid var(--line);
-    border-radius:14px;
-    background:rgba(255,255,255,.78);
-    padding:8px;
+    border:1px solid var(--line); border-radius:14px;
+    background:rgba(255,255,255,.78); padding:8px;
     box-shadow:0 6px 18px rgba(0,0,0,.06);
   }
 
-  /* Header box: titolo + vincitore */
   .final-head{
-    display:flex;
-    align-items:baseline;
-    justify-content:space-between;
-    gap:10px;
-    padding:2px 2px 10px;
-    margin:0 0 10px 0;
+    display:flex; align-items:baseline;
+    justify-content:space-between; gap:10px;
+    padding:2px 2px 10px; margin:0 0 10px 0;
     border-bottom:1px dashed var(--line);
   }
 
-  /* ✅ Titolo con pallino (14px) uguale alla legenda sotto classifica */
   .final-title{
-    display:flex;
-    align-items:center;
-    gap:8px;
-    font-weight:800;
-    letter-spacing:.35px;
-    text-transform:uppercase;
-    font-size:13px;
-    white-space:nowrap;
+    display:flex; align-items:center; gap:8px;
+    font-weight:800; letter-spacing:.35px;
+    text-transform:uppercase; font-size:13px; white-space:nowrap;
   }
-  .final-winner{
-    font-size:12px;
-    white-space:nowrap;
-  }
-  .final-winner span{
-    font-weight:700;
-    letter-spacing:.2px;
-  }
+  .final-winner{ font-size:12px; white-space:nowrap; }
+  .final-winner span{ font-weight:700; letter-spacing:.2px; }
 
-  /* Colori titolo coerenti (soft) */
-  .final-box.bronzo  .final-title{ color: rgba(180,83,9,.95); }
-  .final-box.argento .final-title{ color: rgba(100,116,139,.95); }
-  .final-box.oro     .final-title{ color: rgba(202,138,4,.95); }
+  .final-box.bronzo  .final-title{ color:rgba(180,83,9,.95); }
+  .final-box.argento .final-title{ color:rgba(100,116,139,.95); }
+  .final-box.oro     .final-title{ color:rgba(202,138,4,.95); }
 
-  .final-box table{
-    table-layout:auto;
-    font-size:14px;
-    line-height:1.15;
-  }
-  .final-box th, .final-box td{ padding:4px 6px; }
+  .final-box table{ table-layout:auto; font-size:14px; line-height:1.15; }
+  .final-box th, .final-box td{ padding:4px 8px; }
 
   .final-box th.col-date, .final-box td.col-date,
   .final-box th.col-time, .final-box td.col-time,
-  .final-box th.col-res,  .final-box td.col-res{
-    width:1%;
-    white-space:nowrap;
-  }
+  .final-box th.col-res,  .final-box td.col-res{ width:1%; white-space:nowrap; }
   .final-box th.col-match, .final-box td.col-match{ width:auto; }
 
   .final-box thead th.col-match,
@@ -535,18 +333,19 @@
   .final-box th.col-match, .final-box td.col-match{ padding-right:0; }
   .final-box th.col-res,   .final-box td.col-res{ padding-left:0; text-align:center; }
 
-  /* Barra colorata a sinistra su ogni riga (Bronzo/Argento/Oro) */
-  .final-box tbody td{ position: relative; }
-  .final-box.bronzo  tbody td:first-child{ box-shadow: inset 5px 0 0 var(--rank-bronzo); }
-  .final-box.argento tbody td:first-child{ box-shadow: inset 5px 0 0 var(--rank-argento); }
-  .final-box.oro     tbody td:first-child{ box-shadow: inset 5px 0 0 var(--rank-oro); }
+  .final-box tbody td{ position:relative; }
+  .final-box.bronzo  tbody td:first-child{ box-shadow:inset 5px 0 0 var(--rank-bronzo); }
+  .final-box.argento tbody td:first-child{ box-shadow:inset 5px 0 0 var(--rank-argento); }
+  .final-box.oro     tbody td:first-child{ box-shadow:inset 5px 0 0 var(--rank-oro); }
 
-  /* piccolo respiro tra barra e contenuto */
   .final-box td.col-date{ padding-left:10px; }
 
-  /* ==========================================================
-     RESPONSIVE + PRINT
-  ========================================================== */
+  /* Stile placeholder: testo grigio quando classifica incompleta */
+  .final-box td.placeholder-match {
+    color: var(--muted);
+    font-style: italic;
+  }
+
   @media (max-width:1024px){
     .layout{grid-template-columns:1fr;}
     .finals{grid-column:auto;}
@@ -567,21 +366,19 @@
 
 <body>
   <main class="shell">
-  
-   <!-- ===================== HEADER ====================== -->
-<header class="topbar">
-  <div class="title">
-    <h1>19° Calcio & Coriandoli</h1>
-    <div class="sub-main">Categoria Esordienti 1° anno (Under 12 - 2014)</div>
-  </div>
 
-  <div class="meta-bottom">
-    Campo: ASD Venaria Reale — Via San Marchese, 27 · Venaria Reale
-  </div>
-</header>
+    <header class="topbar">
+      <div class="title">
+        <h1>19° Calcio & Coriandoli</h1>
+        <div class="sub-main">Categoria Esordienti 1° anno (Under 12 - 2014)</div>
+      </div>
+      <div class="meta-bottom">
+        Campo: ASD Venaria Reale — Via San Marchese, 27 · Venaria Reale
+      </div>
+    </header>
 
-    <!-- ===================== MAIN GRID ==================== -->
     <section class="layout">
+
       <!-- 1) SQUADRE -->
       <section class="card squadre">
         <h2><span class="dot blue"></span> Girone Squadre</h2>
@@ -600,7 +397,7 @@
 
       <!-- 2) INCONTRI -->
       <section class="card girone">
-		<h2><span class="dot"></span> Girone Incontri <span class="subtitle">(tempo unico da 25 minuti)</span></h2>
+        <h2><span class="dot"></span> Girone Incontri <span class="subtitle">(tempo unico da 25 minuti)</span></h2>
 
         <table aria-label="Calendario girone unico">
           <thead>
@@ -630,39 +427,39 @@
             <tr><td class="col-date">08/02</td><td class="col-time">12:00</td><td class="col-match">Lucento vs Venaria Reale</td><td class="col-res">5 - 0</td><td class="col-note muted">B</td></tr>
             <tr><td class="col-date">08/02</td><td class="col-time">12:30</td><td class="col-match">Cesena vs Vanchiglia</td><td class="col-res">0 - 0</td><td class="col-note muted">B</td></tr>
             <tr><td class="col-date">08/02</td><td class="col-time">13:00</td><td class="col-match">Cesena vs Pro Eureka</td><td class="col-res">1 - 3</td><td class="col-note muted">B</td></tr>
-            <tr><td class="col-date">08/02</td><td class="col-time">13:30</td><td class="col-match">Vanchiglia vs Pro Eureka</td><td class="col-res">0 - 2</td><td class="col-note muted">B</td></tr>
+            <tr><td class="col-date">08/02</td><td class="col-time">13:30</td><td class="col-match">Vanchiglia vs Pro Eureka</td><td class="col-res"> - </td><td class="col-note muted">B</td></tr>
           </tbody>
         </table>
       </section>
 
       <!-- 3) CLASSIFICA -->
       <section class="card classifica">
-  <h2><span class="dot red"></span> Classifica</h2>
-  
-  <table class="ranking" aria-label="Classifica Girone A">
-    <thead>
-      <tr>
-        <th class="col-team">SQUADRA</th>
-        <th>PT</th>
-        <th>V</th>
-        <th>P</th>
-        <th>S</th>
-        <th>GF</th>
-        <th>GS</th>
-        <th>DR</th>
-      </tr>
-    </thead>
-	<tbody>
-		<tr><td>Pro Eureka</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
-		<tr><td>Lucento</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
-		<tr><td>Sisport</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
-		<tr><td>Cesena</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
-		<tr><td>Vanchiglia</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
-		<tr><td>CBS</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
-		<tr><td>Venaria Reale</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
-		<tr><td>Pro Vercelli</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
-		<tr><td>Lugano</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
-	</tbody>
+        <h2><span class="dot red"></span> Classifica</h2>
+
+        <table class="ranking" aria-label="Classifica Girone A">
+          <thead>
+            <tr>
+              <th class="col-team">SQUADRA</th>
+              <th>PT</th>
+              <th>V</th>
+              <th>P</th>
+              <th>S</th>
+              <th>GF</th>
+              <th>GS</th>
+              <th>DR</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Pro Eureka</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+            <tr><td>Lucento</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+            <tr><td>Sisport</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+            <tr><td>Cesena</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+            <tr><td>Vanchiglia</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+            <tr><td>CBS</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+            <tr><td>Venaria Reale</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+            <tr><td>Pro Vercelli</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+            <tr><td>Lugano</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+          </tbody>
         </table>
 
         <div class="finals-legend" role="note" aria-label="Legenda gironi fasi finali">
@@ -684,11 +481,12 @@
         <h2><span class="dot gold"></span> Fasi Finali</h2>
 
         <div class="finals-row">
+
+          <!-- BRONZO -->
           <div class="final-box bronzo">
             <div class="final-head">
-              <!-- ✅ pallino (14px) uguale alla legenda -->
-              <div class="final-title"><i class="legend-dot bronzo" aria-hidden="true"></i> Girone Bronzo</div>
-              <div class="final-winner">Vincitore: <span class="muted">VENARIA REALE</span></div>
+              <div class="final-title"><i class="legend-dot bronzo"></i> Girone Bronzo</div>
+              <div class="final-winner" id="bronzo-winner">Da definire</div>
             </div>
             <table aria-label="Girone Bronzo">
               <thead>
@@ -699,18 +497,15 @@
                   <th class="col-res">RIS</th>
                 </tr>
               </thead>
-              <tbody>
-                <tr><td class="col-date">08/02</td><td class="col-time">14:00</td><td class="col-match">Lugano - Pro Vercelli</td><td class="col-res">—</td></tr>
-                <tr><td class="col-date">08/02</td><td class="col-time">14:30</td><td class="col-match">Venaria Reale - Pro Vercelli</td><td class="col-res">—</td></tr>
-                <tr><td class="col-date">08/02</td><td class="col-time">15:00</td><td class="col-match">Venaria Reale - Lugano</td><td class="col-res">—</td></tr>
-              </tbody>
+              <tbody id="bronzo-body"></tbody>
             </table>
           </div>
 
+          <!-- ARGENTO -->
           <div class="final-box argento">
             <div class="final-head">
-              <div class="final-title"><i class="legend-dot argento" aria-hidden="true"></i> Girone Argento</div>
-              <div class="final-winner">Vincitore: <span class="muted">VANCHIGLIA</span></div>
+              <div class="final-title"><i class="legend-dot argento"></i> Girone Argento</div>
+              <div class="final-winner" id="argento-winner">Da definire</div>
             </div>
             <table aria-label="Girone Argento">
               <thead>
@@ -721,18 +516,15 @@
                   <th class="col-res">RIS</th>
                 </tr>
               </thead>
-              <tbody>
-                <tr><td class="col-date">08/02</td><td class="col-time">15:30</td><td class="col-match">Vanchiglia vs CBS</td><td class="col-res">—</td></tr>
-                <tr><td class="col-date">08/02</td><td class="col-time">16:00</td><td class="col-match">Cesena vs CBS</td><td class="col-res">—</td></tr>
-                <tr><td class="col-date">08/02</td><td class="col-time">16:30</td><td class="col-match">Cesena vs Vanchiglia</td><td class="col-res">—</td></tr>
-              </tbody>
+              <tbody id="argento-body"></tbody>
             </table>
           </div>
 
+          <!-- ORO -->
           <div class="final-box oro">
             <div class="final-head">
-              <div class="final-title"><i class="legend-dot oro" aria-hidden="true"></i> Girone Oro</div>
-              <div class="final-winner">Vincitore: <span class="muted">SISPORT</span></div>
+              <div class="final-title"><i class="legend-dot oro"></i> Girone Oro</div>
+              <div class="final-winner" id="oro-winner">Da definire</div>
             </div>
             <table aria-label="Girone Oro">
               <thead>
@@ -743,65 +535,81 @@
                   <th class="col-res">RIS</th>
                 </tr>
               </thead>
-              <tbody>
-                <tr><td class="col-date">08/02</td><td class="col-time">17:00</td><td class="col-match">Pro Eureka vs Lucento</td><td class="col-res">0 - 2</td></tr>
-                <tr><td class="col-date">08/02</td><td class="col-time">17:30</td><td class="col-match">Lucento vs Sisport</td><td class="col-res">0 - 0</td></tr>
-                <tr><td class="col-date">08/02</td><td class="col-time">18:00</td><td class="col-match">Sisport vs Pro Eureka</td><td class="col-res">2 - 0</td></tr>
-              </tbody>
+              <tbody id="oro-body"></tbody>
             </table>
           </div>
+
         </div>
       </section>
+
     </section>
   </main>
 
- <script>
+  <script>
   (function () {
-    // ==========================================================
-    // V02 - CLASSIFICA AUTOMATICA (DR prima di GF)
-    // ==========================================================
-    const POINTS_WIN = 3;
+    const POINTS_WIN  = 3;
     const POINTS_DRAW = 1;
-    const POINTS_LOSS = 0;
 
     const ALIASES = new Map([
-      ["venaria", "venaria reale"],
+      ["venaria",       "venaria reale"],
       ["venaria reale", "venaria reale"],
     ]);
 
+    // Numero totale di partite del girone da completare
+    const TOTAL_MATCHES = 18;
+
+    // Calendario fasi finali (data + ora) – ordine: riga1, riga2, riga3
+    const FINALS_SCHEDULE = {
+      bronzo:  [
+        { date: "08/02", time: "14:00" },
+        { date: "08/02", time: "14:30" },
+        { date: "08/02", time: "15:00" },
+      ],
+      argento: [
+        { date: "08/02", time: "15:30" },
+        { date: "08/02", time: "16:00" },
+        { date: "08/02", time: "16:30" },
+      ],
+      oro: [
+        { date: "08/02", time: "17:00" },
+        { date: "08/02", time: "17:30" },
+        { date: "08/02", time: "18:00" },
+      ],
+    };
+
     function normTeam(name) {
-      const clean = String(name || "").trim()
-        .replace(/\s+/g, " ")
-        .toLowerCase();
+      const clean = String(name || "").trim().replace(/\s+/g, " ").toLowerCase();
       return ALIASES.get(clean) || clean;
     }
 
     function parseMatchText(text) {
       const t = String(text || "").trim();
       if (!t) return null;
-
       let parts = t.split(/\s+vs\s+/i);
       if (parts.length === 2) return parts.map(s => s.trim());
-
       parts = t.split(/\s*[-–]\s*/);
       if (parts.length === 2) return parts.map(s => s.trim());
-
       return null;
     }
 
     function parseScoreText(text) {
       const t = String(text || "").trim();
-      if (!t || t === "—" || t === "-") return null;
-
+      if (!t || t === "—" || t === "-" || t === "") return null;
       const m = t.match(/^(\d+)\s*[-–]\s*(\d+)$/);
       if (!m) return null;
-
       return [Number(m[1]), Number(m[2])];
     }
 
+    /**
+     * Legge tutte le righe del girone e restituisce:
+     *  - stats: Map(teamKey → {V,P,S,GF,GS,PT,DR})
+     *  - h2hMap: Map("a||b" → {a,b,aGoals,bGoals})
+     *  - completedCount: numero di risultati validi trovati
+     */
     function computeFromIncontri() {
-      const stats = new Map();
-      const h2hMap = new Map();
+      const stats   = new Map();
+      const h2hMap  = new Map();
+      let completedCount = 0;
 
       document.querySelectorAll(".girone tbody tr").forEach(tr => {
         const tds = tr.querySelectorAll("td");
@@ -809,11 +617,14 @@
 
         const teams = parseMatchText(tds[2]?.textContent || "");
         const score = parseScoreText(tds[3]?.textContent || "");
+
+        // Conta questa riga come "risultato presente" solo se il punteggio è valido
+        if (teams && score) completedCount++;
+
         if (!teams || !score) return;
 
         const [aName, bName] = teams;
         const [aGoals, bGoals] = score;
-
         const a = normTeam(aName);
         const b = normTeam(bName);
 
@@ -827,38 +638,32 @@
         sb.GF += bGoals; sb.GS += aGoals;
 
         if (aGoals > bGoals) {
-          sa.V += 1; sa.PT += POINTS_WIN;
-          sb.S += 1;
+          sa.V += 1; sa.PT += POINTS_WIN; sb.S += 1;
         } else if (aGoals < bGoals) {
-          sb.V += 1; sb.PT += POINTS_WIN;
-          sa.S += 1;
+          sb.V += 1; sb.PT += POINTS_WIN; sa.S += 1;
         } else {
           sa.P += 1; sb.P += 1;
           sa.PT += POINTS_DRAW; sb.PT += POINTS_DRAW;
         }
 
-        // Head-to-Head
         const key = [a, b].sort().join("||");
         h2hMap.set(key, { a, b, aGoals, bGoals });
       });
 
       stats.forEach(s => s.DR = s.GF - s.GS);
-      return { stats, h2hMap };
+      return { stats, h2hMap, completedCount };
     }
 
     function applyToClassifica(stats) {
       document.querySelectorAll(".classifica tbody tr").forEach(tr => {
         const cells = tr.querySelectorAll("td");
         if (cells.length < 8) return;
-
         const teamKey = normTeam(cells[0].textContent);
         const s = stats.get(teamKey);
-
         if (!s) {
           for (let i = 1; i <= 7; i++) cells[i].textContent = "0";
           return;
         }
-
         cells[1].textContent = s.PT;
         cells[2].textContent = s.V;
         cells[3].textContent = s.P;
@@ -879,28 +684,24 @@
       rows.sort((ra, rb) => {
         const aName = ra.cells[0].textContent.trim();
         const bName = rb.cells[0].textContent.trim();
-        const aKey = normTeam(aName);
-        const bKey = normTeam(bName);
+        const aKey  = normTeam(aName);
+        const bKey  = normTeam(bName);
 
         const aPT = parseInt(ra.cells[1].textContent) || 0;
         const bPT = parseInt(rb.cells[1].textContent) || 0;
-
         if (bPT !== aPT) return bPT - aPT;
 
-        // Scontro Diretto
         const key = [aKey, bKey].sort().join("||");
         const h2h = h2hMap.get(key);
         if (h2h) {
           if (h2h.a === aKey && h2h.aGoals > h2h.bGoals) return -1;
-          if (h2h.a === aKey && h2h.aGoals < h2h.bGoals) return 1;
+          if (h2h.a === aKey && h2h.aGoals < h2h.bGoals) return  1;
         }
 
-        // DR (prima di GF - come richiesto)
         const aDR = parseInt(ra.cells[7].textContent) || 0;
         const bDR = parseInt(rb.cells[7].textContent) || 0;
         if (bDR !== aDR) return bDR - aDR;
 
-        // GF
         const aGF = parseInt(ra.cells[5].textContent) || 0;
         const bGF = parseInt(rb.cells[5].textContent) || 0;
         if (bGF !== aGF) return bGF - aGF;
@@ -908,37 +709,106 @@
         return aName.localeCompare(bName, "it");
       });
 
-      // Riordina
       rows.forEach(r => tbody.appendChild(r));
 
-      // Applica fasce colori
       rows.forEach((r, i) => {
-        if (i < 3) r.classList.add("rank-oro");
+        if      (i < 3) r.classList.add("rank-oro");
         else if (i < 6) r.classList.add("rank-argento");
-        else r.classList.add("rank-bronzo");
+        else            r.classList.add("rank-bronzo");
       });
+    }
+
+    /**
+     * Popola le fasi finali.
+     *
+     * Se il girone NON è completo (completedCount < TOTAL_MATCHES):
+     *   → mostra data/ora fisse + nomi placeholder (SQ1–SQ3 / SQ4–SQ6 / SQ7–SQ9)
+     *     con il naming che rispecchia la posizione in classifica:
+     *       Bronzo:  SQ9 - SQ8 / SQ7 - SQ8 / SQ7 - SQ9
+     *       Argento: SQ6 - SQ5 / SQ4 - SQ5 / SQ4 - SQ6
+     *       Oro:     SQ3 - SQ2 / SQ1 - SQ2 / SQ1 - SQ3
+     *
+     * Se il girone è completo:
+     *   → sostituisce i placeholder con i nomi reali dalla classifica.
+     */
+    function updateFasiFinali(completedCount) {
+      const bronzoBody  = document.getElementById("bronzo-body");
+      const argentoBody = document.getElementById("argento-body");
+      const oroBody     = document.getElementById("oro-body");
+      if (!bronzoBody || !argentoBody || !oroBody) return;
+
+      bronzoBody.innerHTML  = "";
+      argentoBody.innerHTML = "";
+      oroBody.innerHTML     = "";
+
+      const gironeCompleto = (completedCount >= TOTAL_MATCHES);
+
+      // Leggi l'ordine attuale della classifica
+      const sortedTeams = Array.from(
+        document.querySelectorAll(".classifica tbody tr td:first-child")
+      ).map(td => td.textContent.trim());
+
+      // Helper: crea una riga TR
+      function makeRow(date, time, matchHtml, resText, isPlaceholder) {
+        const tr = document.createElement("tr");
+        const matchClass = isPlaceholder ? "col-match placeholder-match" : "col-match";
+        tr.innerHTML = `
+          <td class="col-date">${date}</td>
+          <td class="col-time">${time}</td>
+          <td class="${matchClass}">${matchHtml}</td>
+          <td class="col-res">—</td>
+        `;
+        return tr;
+      }
+
+      // Helper: popola un corpo tabella con 3 righe
+      // teams = [t1, t2, t3] → partite: t1-t2, t3-t2, t3-t1
+      function fillBody(body, t1, t2, t3, isPlaceholder, schedule) {
+        schedule.forEach((slot, i) => {
+          let matchA, matchB;
+          if (i === 0) { matchA = t1; matchB = t2; }
+          else if (i === 1) { matchA = t3; matchB = t2; }
+          else              { matchA = t3; matchB = t1; }
+          body.appendChild(makeRow(slot.date, slot.time, `${matchA} - ${matchB}`, "—", isPlaceholder));
+        });
+      }
+
+      if (!gironeCompleto) {
+        // Placeholder con numeri di posizione in classifica
+        // Bronzo  = posizioni 7-8-9 (array idx 6,7,8)
+        // Argento = posizioni 4-5-6 (array idx 3,4,5)
+        // Oro     = posizioni 1-2-3 (array idx 0,1,2)
+        fillBody(bronzoBody,  "SQ9", "SQ8", "SQ7", true,  FINALS_SCHEDULE.bronzo);
+        fillBody(argentoBody, "SQ6", "SQ5", "SQ4", true,  FINALS_SCHEDULE.argento);
+        fillBody(oroBody,     "SQ3", "SQ2", "SQ1", true,  FINALS_SCHEDULE.oro);
+      } else {
+        // Girone completo: usa nomi reali
+        // sortedTeams[0] = 1°, sortedTeams[8] = 9°
+        const bronzo  = [sortedTeams[8], sortedTeams[7], sortedTeams[6]]; // SQ9, SQ8, SQ7
+        const argento = [sortedTeams[5], sortedTeams[4], sortedTeams[3]]; // SQ6, SQ5, SQ4
+        const oro     = [sortedTeams[2], sortedTeams[1], sortedTeams[0]]; // SQ3, SQ2, SQ1
+
+        fillBody(bronzoBody,  bronzo[0],  bronzo[1],  bronzo[2],  false, FINALS_SCHEDULE.bronzo);
+        fillBody(argentoBody, argento[0], argento[1], argento[2], false, FINALS_SCHEDULE.argento);
+        fillBody(oroBody,     oro[0],     oro[1],     oro[2],     false, FINALS_SCHEDULE.oro);
+      }
     }
 
     function run() {
-      const { stats, h2hMap } = computeFromIncontri();
+      const { stats, h2hMap, completedCount } = computeFromIncontri();
       applyToClassifica(stats);
       sortAndRankClassifica(h2hMap);
+      updateFasiFinali(completedCount);
     }
 
-    // Avvio
     run();
 
-    // Aggiornamento automatico
     const incontriTable = document.querySelector(".girone table");
     if (incontriTable) {
       const obs = new MutationObserver(run);
-      obs.observe(incontriTable, { 
-        subtree: true, 
-        characterData: true, 
-        childList: true 
-      });
+      obs.observe(incontriTable, { subtree: true, characterData: true, childList: true });
     }
   })();
-</script>
+  </script>
 </body>
 </html>
